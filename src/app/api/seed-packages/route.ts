@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     }
 
     // Check existing packages
-    const existingCount = await prisma.paket.count();
+    const existingCount = await prisma.package.count();
     
     if (existingCount > 0) {
       return NextResponse.json({ 
@@ -21,43 +21,43 @@ export async function POST(request: Request) {
     }
 
     // Create dummy packages
-    const packages = await prisma.paket.createMany({
+    const packages = await prisma.package.createMany({
       data: [
         {
           nama: 'Latihan Dasar - Paket 1',
-          deskripsi: 'Paket latihan dasar untuk pemula dengan 20 soal pilihan ganda',
+          tipe_paket: 'latihan',
+          total_soal: 20,
+          max_attempt: 3,
+          is_free: true,
           harga: 0,
-          durasi: 30,
-          jumlahSoal: 20,
-          maxAttempts: 3,
-          isActive: true
+          is_active: true
         },
         {
           nama: 'Latihan Lanjutan - Paket 2',
-          deskripsi: 'Paket latihan lanjutan dengan 30 soal level menengah',
+          tipe_paket: 'latihan',
+          total_soal: 30,
+          max_attempt: 2,
+          is_free: true,
           harga: 0,
-          durasi: 45,
-          jumlahSoal: 30,
-          maxAttempts: 2,
-          isActive: true
+          is_active: true
         },
         {
           nama: 'UKMPPD Simulasi Free',
-          deskripsi: 'Simulasi UKMPPD gratis dengan 100 soal',
+          tipe_paket: 'ukmppd',
+          total_soal: 100,
+          max_attempt: 1,
+          is_free: true,
           harga: 0,
-          durasi: 180,
-          jumlahSoal: 100,
-          maxAttempts: 1,
-          isActive: true
+          is_active: true
         },
         {
           nama: 'UKMPPD Simulasi Premium',
-          deskripsi: 'Simulasi UKMPPD premium dengan pembahasan lengkap - 150 soal',
+          tipe_paket: 'ukmppd',
+          total_soal: 150,
+          max_attempt: 5,
+          is_free: false,
           harga: 50000,
-          durasi: 240,
-          jumlahSoal: 150,
-          maxAttempts: 5,
-          isActive: true
+          is_active: true
         }
       ]
     });
@@ -71,15 +71,15 @@ export async function POST(request: Request) {
       { nama: 'Latihan Bahasa Inggris', jenis: 'bahasa_inggris' }
     ];
 
-    const subjectPackages = await prisma.paket.createMany({
+    const subjectPackages = await prisma.package.createMany({
       data: subjects.map(subject => ({
         nama: subject.nama,
-        deskripsi: `Kumpulan soal ${subject.nama.toLowerCase()}`,
+        tipe_paket: 'latihan',
+        total_soal: 0,
+        max_attempt: 999,
+        is_free: true,
         harga: 0,
-        durasi: 60,
-        jumlahSoal: 0,
-        maxAttempts: 999,
-        isActive: true
+        is_active: true
       }))
     });
 
