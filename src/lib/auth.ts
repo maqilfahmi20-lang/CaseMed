@@ -87,6 +87,11 @@ export async function login(email: string, password: string) {
       return { success: false, error: 'Email atau password salah' };
     }
 
+    // Cek apakah user punya password (bukan OAuth user)
+    if (!user.password) {
+      return { success: false, error: 'Gunakan metode login OAuth' };
+    }
+
     // Verifikasi password
     const isPasswordValid = await verifyPassword(password, user.password);
     if (!isPasswordValid) {
