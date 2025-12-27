@@ -1,0 +1,201 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+// Model User - untuk admin dan siswa
+model User {
+  id            String    @id @default(cuid())
+  nama          String
+  email         String    @unique
+  password      String?   // Optional karena Google login tidak perlu password
+  role          String    @default("user") // "admin" atau "user"
+  
+  // OAuth fields
+  googleId      String?   @unique
+  image         String?
+  emailVerified DateTime?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  attempts UserAttempt[]
+  payments Payment[]
+  accounts Account[]
+  sessions Session[]
+
+  @@map("users")
+}
+
+// NextAuth Account model
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+// NextAuth Session model
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// NextAuth VerificationToken model
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Model Question - bank soal
+model Question {
+  id             String   @id @default(cuid())
+  kategori       String   // "latihan" atau "ukmppd"
+  jenis_soal     String?  // untuk latihan: "matematika", "fisika", "kimia", "bahasa_indonesia", "bahasa_inggris"
+  pertanyaan     String   @db.Text
+  opsi_a         String   @db.Text
+  opsi_b         String   @db.Text
+  opsi_c         String   @db.Text
+  opsi_d         String   @db.Text
+  opsi_e         String   @db.Text
+  jawaban_benar  String   // "a", "b", "c", "d", atau "e"
+  pembahasan     String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  packageQuestions PackageQuestion[]
+  attemptQuestions AttemptQuestion[]
+
+  @@index([kategori])
+  @@index([jenis_soal])
+  @@map("questions")
+}
+
+// Model Package - paket latihan/ujian
+model Package {
+  id          String   @id @default(cuid())
+  nama        String
+  tipe_paket  String   // "latihan" atau "ukmppd"
+  total_soal  Int      // 20 untuk latihan, 150 untuk ukmppd
+  max_attempt Int      @default(1) // maksimal percobaan
+  is_free     Boolean  @default(false)
+  harga       Int?     // dalam rupiah, null jika gratis
+  is_active   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  questions PackageQuestion[]
+  attempts  UserAttempt[]
+  payments  Payment[]
+
+  @@index([tipe_paket, is_active])
+  @@map("packages")
+}
+
+// Model PackageQuestion - relasi many-to-many package dan question
+model PackageQuestion {
+  id          String   @id @default(cuid())
+  package_id  String
+  question_id String
+
+  package  Package  @relation(fields: [package_id], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [question_id], references: [id], onDelete: Cascade)
+
+  @@unique([package_id, question_id])
+  @@index([package_id])
+  @@index([question_id])
+  @@map("package_questions")
+}
+
+// Model UserAttempt - percobaan mengerjakan paket
+model UserAttempt {
+  id         String   @id @default(cuid())
+  user_id    String
+  package_id String
+  attempt_ke Int      // percobaan ke berapa (1, 2, dst)
+  nilai      Float?   // nilai setelah selesai
+  mulai_at   DateTime @default(now())
+  selesai_at DateTime?
+  
+  user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  package  Package  @relation(fields: [package_id], references: [id], onDelete: Cascade)
+  
+  questions AttemptQuestion[]
+
+  @@unique([user_id, package_id, attempt_ke])
+  @@index([user_id])
+  @@index([package_id])
+  @@map("user_attempts")
+}
+
+// Model AttemptQuestion - soal yang dikerjakan pada attempt tertentu
+model AttemptQuestion {
+  id             String  @id @default(cuid())
+  attempt_id     String
+  question_id    String
+  jawaban_user   String? // "a", "b", "c", "d", atau null jika belum dijawab
+  is_correct     Boolean @default(false)
+  urutan         Int     // urutan soal dalam attempt (untuk random)
+
+  attempt  UserAttempt @relation(fields: [attempt_id], references: [id], onDelete: Cascade)
+  question Question    @relation(fields: [question_id], references: [id], onDelete: Cascade)
+
+  @@unique([attempt_id, question_id])
+  @@index([attempt_id])
+  @@map("attempt_questions")
+}
+
+// Model Payment - transaksi pembayaran
+model Payment {
+  id         String   @id @default(cuid())
+  user_id    String
+  package_id String
+  order_id   String   @unique // ID order Midtrans
+  jumlah     Int      // jumlah pembayaran dalam rupiah
+  status     String   @default("pending") // "pending", "paid", "failed"
+  snap_token String?  // token untuk tampilkan QR Midtrans
+  paid_at    DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  package Package @relation(fields: [package_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([package_id])
+  @@index([order_id])
+  @@index([status])
+  @@map("payments")
+}
