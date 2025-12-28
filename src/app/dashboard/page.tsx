@@ -174,7 +174,7 @@ export default async function DashboardPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-white/90">Durasi</span>
-                  <span className="font-bold text-xl">3-4 Jam</span>
+                  <span className="font-bold text-xl">200 menit</span>
                 </div>
               </div>
               <div className="flex items-center justify-between bg-white/10 backdrop-blur rounded-lg px-6 py-4">
