@@ -13,7 +13,18 @@ export default async function SimulasiPage() {
       tipe_paket: 'simulasi'
     },
     orderBy: { createdAt: 'desc' },
-    include: {
+    select: {
+      id: true,
+      nama: true,
+      tipe_paket: true,
+      kategori: true,
+      total_soal: true,
+      max_attempt: true,
+      is_free: true,
+      harga: true,
+      is_active: true,
+      createdAt: true,
+      updatedAt: true,
       _count: {
         select: { questions: true }
       }

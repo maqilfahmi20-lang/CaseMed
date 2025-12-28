@@ -11,7 +11,18 @@ export default async function AdminPaketPage() {
   const simulasiPackages = await prisma.package.findMany({
     where: { tipe_paket: 'simulasi' },
     orderBy: { createdAt: 'desc' },
-    include: {
+    select: {
+      id: true,
+      nama: true,
+      tipe_paket: true,
+      kategori: true,
+      total_soal: true,
+      max_attempt: true,
+      is_free: true,
+      harga: true,
+      is_active: true,
+      createdAt: true,
+      updatedAt: true,
       _count: {
         select: {
           questions: true,
@@ -23,8 +34,19 @@ export default async function AdminPaketPage() {
 
   const latihanPackages = await prisma.package.findMany({
     where: { tipe_paket: 'latihan' },
-    orderBy: { kategori: 'asc' },
-    include: {
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      nama: true,
+      tipe_paket: true,
+      kategori: true,
+      total_soal: true,
+      max_attempt: true,
+      is_free: true,
+      harga: true,
+      is_active: true,
+      createdAt: true,
+      updatedAt: true,
       _count: {
         select: {
           questions: true,
