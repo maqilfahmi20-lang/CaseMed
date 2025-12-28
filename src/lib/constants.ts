@@ -28,8 +28,8 @@ export const SUBSCRIPTION_DURATION_DAYS = 30; // 30 hari
 
 // Exam durations in seconds
 export const EXAM_DURATIONS = {
-  LATIHAN: 1800, // 30 minutes
-  SIMULASI: 7200, // 2 hours
+  LATIHAN: 1800, // 30 minutes (20 soal)
+  SIMULASI: 12000, // 200 minutes (150 soal)
   TRYOUT: 10800, // 3 hours
 } as const;
 
@@ -38,7 +38,7 @@ export const TIMER_WARNING_THRESHOLD = 600; // 10 minutes
 
 // Question counts
 export const QUESTION_COUNTS = {
-  LATIHAN: 10,
+  LATIHAN: 20,
   SIMULASI: 150,
   TRYOUT: 200,
 } as const;
