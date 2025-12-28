@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createPackage } from '@/app/actions/admin/paket';
 import Link from 'next/link';
+import { KATEGORI_UKMPPD } from '@/lib/constants';
 
 export default function TambahPaketForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isFree, setIsFree] = useState(true);
+  const [tipePaket, setTipePaket] = useState('latihan');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,14 +81,37 @@ export default function TambahPaketForm() {
               </label>
               <select
                 name="tipe_paket"
+                value={tipePaket}
+                onChange={(e) => setTipePaket(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 required
                 disabled={isLoading}
               >
-                <option value="latihan">Latihan</option>
-                <option value="ukmppd">UKMPPD</option>
+                <option value="latihan">Latihan UKMPPD</option>
+                <option value="simulasi">Simulasi UKMPPD</option>
               </select>
             </div>
+
+            {/* Kategori (for both Latihan and Simulasi) */}
+            {(tipePaket === 'latihan' || tipePaket === 'simulasi') && (
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Kategori Sistem <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="kategori"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  required
+                  disabled={isLoading}
+                >
+                  <option value="">Pilih Kategori</option>
+                  {KATEGORI_UKMPPD.map((kat, index) => (
+                    <option key={index} value={kat}>{kat}</option>
+                  ))}
+                </select>
+                <p className="mt-2 text-sm text-gray-500">16 kategori sistem UKMPPD</p>
+              </div>
+            )}
 
             {/* Total Soal & Max Attempt */}
             <div className="grid md:grid-cols-2 gap-6 mb-6">

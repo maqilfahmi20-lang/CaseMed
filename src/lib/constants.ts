@@ -2,6 +2,26 @@
 // CONSTANTS FOR THE APPLICATION
 // ============================================
 
+// Kategori UKMPPD
+export const KATEGORI_UKMPPD = [
+  'Basic Medical Science',
+  'Etika, Hukum, dan Profesionalisme Kedokteran',
+  'Sistem Saraf dan Perilaku',
+  'Sistem Kardiovaskular dan Hematologi',
+  'Sistem Respirasi',
+  'Sistem Gastrointestinal dan Hepatobilier',
+  'Sistem Ginjal dan Saluran Kemih',
+  'Sistem Endokrin dan Metabolik',
+  'Sistem Reproduksi dan Kesehatan Ibu dan Anak',
+  'Sistem Muskuloskeletal dan Reumatologi',
+  'Sistem Integumen',
+  'Penyakit Infeksi dan Penyakit Tropis',
+  'Ilmu Penyakit Dalam Terpadu',
+  'Bedah Terpadu dan Kegawatdaruratan',
+  'Kedokteran Keluarga dan Komunitas',
+  'Gawat Darurat dan Patient Safety'
+] as const;
+
 // Exam durations in seconds
 export const EXAM_DURATIONS = {
   LATIHAN: 1800, // 30 minutes

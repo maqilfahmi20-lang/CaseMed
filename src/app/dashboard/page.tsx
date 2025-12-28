@@ -2,11 +2,12 @@ import { requireAuth } from '@/lib/auth';
 import { logoutAction } from '@/app/actions/auth';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import { KATEGORI_UKMPPD } from '@/lib/constants';
 
 export default async function DashboardPage() {
   const user = await requireAuth();
   
-  // Fetch user attempts
+  // Fetch user stats
   const attempts = await prisma.userAttempt.count({
     where: { user_id: user.id }
   });
@@ -19,28 +20,13 @@ export default async function DashboardPage() {
     _avg: { nilai: true }
   });
 
-  // Fetch recent attempts with package info
-  const recentAttempts = await prisma.userAttempt.findMany({
-    where: { 
-      user_id: user.id,
-      selesai_at: { not: null }
-    },
-    include: {
-      package: true
-    },
-    orderBy: { selesai_at: 'desc' },
-    take: 5
+  // Count packages by type
+  const simulasiCount = await prisma.package.count({
+    where: { is_active: true, tipe_paket: 'simulasi' }
   });
 
-  // Fetch available packages
-  const packages = await prisma.package.findMany({
-    where: { is_active: true },
-    orderBy: { createdAt: 'desc' },
-    include: {
-      _count: {
-        select: { questions: true }
-      }
-    }
+  const latihanCount = await prisma.package.count({
+    where: { is_active: true, tipe_paket: 'latihan' }
   });
 
   const handleLogout = async () => {
@@ -49,12 +35,12 @@ export default async function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
       {/* Navbar */}
       <nav className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-blue-600">CaseMed</h1>
+            <h1 className="text-2xl font-bold text-blue-600">🩺 CaseMed</h1>
             <div className="flex items-center gap-4">
               <span className="text-gray-700">Halo, {user.nama}</span>
               <form action={handleLogout}>
@@ -72,158 +58,104 @@ export default async function DashboardPage() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Welcome Section */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-8 text-white mb-8">
-            <h2 className="text-3xl font-bold mb-2">Selamat Datang, {user.nama}!</h2>
-            <p className="text-white/90">Mulai latihan hari ini</p>
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-8 text-white mb-8 shadow-lg">
+            <h2 className="text-3xl font-bold mb-2">Selamat Datang, {user.nama}! 👋</h2>
+            <p className="text-white/90">Pilih mode latihan Anda</p>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white rounded-lg p-6 shadow-sm border">
-              <div className="text-3xl mb-2">📚</div>
-              <div className="text-2xl font-bold text-gray-800">{packages.length}</div>
-              <div className="text-gray-600">Paket Tersedia</div>
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <div className="text-4xl mb-3">🎯</div>
+              <div className="text-3xl font-bold text-gray-800">{attempts}</div>
+              <div className="text-gray-600 text-sm">Ujian Dikerjakan</div>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm border">
-              <div className="text-3xl mb-2">🎯</div>
-              <div className="text-2xl font-bold text-gray-800">{attempts}</div>
-              <div className="text-gray-600">Ujian Dikerjakan</div>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm border">
-              <div className="text-3xl mb-2">⭐</div>
-              <div className="text-2xl font-bold text-gray-800">
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <div className="text-4xl mb-3">⭐</div>
+              <div className="text-3xl font-bold text-gray-800">
                 {avgNilai._avg.nilai ? avgNilai._avg.nilai.toFixed(1) : '-'}
               </div>
-              <div className="text-gray-600">Nilai Rata-rata</div>
+              <div className="text-gray-600 text-sm">Nilai Rata-rata</div>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <div className="text-4xl mb-3">📚</div>
+              <div className="text-3xl font-bold text-gray-800">{simulasiCount + latihanCount}</div>
+              <div className="text-gray-600 text-sm">Total Paket</div>
             </div>
           </div>
 
-          {/* Paket List */}
-          <div className="mb-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Paket Latihan & UKMPPD</h3>
-            
-            {packages.length === 0 ? (
-              <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
-                <div className="text-6xl mb-4">📦</div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Belum ada paket</h3>
-                <p className="text-gray-600">Admin sedang menyiapkan paket untuk Anda</p>
-              </div>
-            ) : (
-              <div className="grid md:grid-cols-2 gap-6">
-                {packages.map((pkg) => (
-                  <div key={pkg.id} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                          pkg.tipe_paket === 'ukmppd' 
-                            ? 'bg-orange-100 text-orange-800' 
-                            : 'bg-blue-100 text-blue-800'
-                        }`}>
-                          {pkg.tipe_paket.toUpperCase()}
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-blue-600">
-                          {pkg.harga === 0 ? 'GRATIS' : `Rp ${(pkg.harga || 0).toLocaleString('id-ID')}`}
-                        </div>
-                      </div>
-                    </div>
-
-                    <h4 className="text-lg font-bold text-gray-800 mb-2">{pkg.nama}</h4>
-                    
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <div className="flex items-center gap-1">
-                        <span>📝</span>
-                        <span>{pkg._count.questions} soal</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <span>🔄</span>
-                        <span>Max {pkg.max_attempt}x</span>
-                      </div>
-                    </div>
-
-                    <Link
-                      href={`/paket/${pkg.id}`}
-                      className="block w-full bg-blue-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-                    >
-                      Lihat Detail
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Riwayat Ujian */}
-          {recentAttempts.length > 0 && (
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">Riwayat Ujian Terbaru</h3>
-              <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-                <div className="divide-y divide-gray-200">
-                  {recentAttempts.map((attempt) => {
-                    const nilai = attempt.nilai || 0;
-                    let nilaiColor = 'text-gray-600';
-                    if (nilai >= 80) nilaiColor = 'text-green-600';
-                    else if (nilai >= 70) nilaiColor = 'text-blue-600';
-                    else if (nilai >= 60) nilaiColor = 'text-yellow-600';
-                    else nilaiColor = 'text-red-600';
-
-                    return (
-                      <div key={attempt.id} className="p-4 hover:bg-gray-50 transition">
-                        <div className="flex items-center justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${
-                                attempt.package.tipe_paket === 'ukmppd'
-                                  ? 'bg-orange-100 text-orange-800'
-                                  : 'bg-blue-100 text-blue-800'
-                              }`}>
-                                {attempt.package.tipe_paket.toUpperCase()}
-                              </span>
-                              <h4 className="font-semibold text-gray-800">{attempt.package.nama}</h4>
-                            </div>
-                            <p className="text-sm text-gray-500">
-                              {attempt.selesai_at && new Date(attempt.selesai_at).toLocaleString('id-ID', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                              })}
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-4">
-                            <div className="text-right">
-                              <div className={`text-2xl font-bold ${nilaiColor}`}>
-                                {nilai.toFixed(0)}
-                              </div>
-                              <div className="text-xs text-gray-500">Nilai</div>
-                            </div>
-                            <div className="flex gap-2">
-                              <Link
-                                href={`/hasil/${attempt.id}`}
-                                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition"
-                              >
-                                Hasil
-                              </Link>
-                              <Link
-                                href={`/pembahasan/${attempt.id}`}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition"
-                              >
-                                Pembahasan
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+          {/* Main Menu - 2 Kolom */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Simulasi UKMPPD */}
+            <Link
+              href="/simulasi"
+              className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white shadow-2xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <div className="text-6xl mb-6">🏥</div>
+              <h3 className="text-3xl font-bold mb-3">Simulasi UKMPPD</h3>
+              <p className="text-white/90 mb-6 text-lg">
+                Ujian simulasi lengkap seperti UKMPPD asli dengan 150 soal
+              </p>
+              <div className="bg-white/20 backdrop-blur rounded-lg p-4 mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-white/90">Jumlah Paket</span>
+                  <span className="font-bold text-xl">{simulasiCount}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-white/90">Durasi</span>
+                  <span className="font-bold text-xl">3-4 Jam</span>
                 </div>
               </div>
+              <div className="flex items-center justify-between bg-white/10 backdrop-blur rounded-lg px-6 py-4">
+                <span className="font-semibold text-lg">Mulai Simulasi</span>
+                <span className="text-2xl">→</span>
+              </div>
+            </Link>
+
+            {/* Latihan UKMPPD */}
+            <Link
+              href="/latihan"
+              className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-8 text-white shadow-2xl hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <div className="text-6xl mb-6">📝</div>
+              <h3 className="text-3xl font-bold mb-3">Latihan UKMPPD</h3>
+              <p className="text-white/90 mb-6 text-lg">
+                Latihan per sistem dengan 16 kategori materi UKMPPD
+              </p>
+              <div className="bg-white/20 backdrop-blur rounded-lg p-4 mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-white/90">Jumlah Paket</span>
+                  <span className="font-bold text-xl">{latihanCount}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-white/90">Kategori</span>
+                  <span className="font-bold text-xl">16 Sistem</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between bg-white/10 backdrop-blur rounded-lg px-6 py-4">
+                <span className="font-semibold text-lg">Mulai Latihan</span>
+                <span className="text-2xl">→</span>
+              </div>
+            </Link>
+          </div>
+
+          {/* 16 Kategori Preview */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6">16 Kategori Latihan UKMPPD</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {KATEGORI_UKMPPD.map((kategori, index) => (
+                <div
+                  key={index}
+                  className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200 hover:border-blue-400 transition"
+                >
+                  <div className="text-2xl mb-2">{index + 1}</div>
+                  <div className="text-sm font-medium text-gray-700">{kategori}</div>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

@@ -107,8 +107,9 @@ model Question {
 model Package {
   id          String   @id @default(cuid())
   nama        String
-  tipe_paket  String   // "latihan" atau "ukmppd"
-  total_soal  Int      // 20 untuk latihan, 150 untuk ukmppd
+  tipe_paket  String   // "simulasi" atau "latihan"
+  kategori    String?  // Sistem medis (Basic Medical Science, Sistem Saraf, dll)
+  total_soal  Int      // jumlah soal
   max_attempt Int      @default(1) // maksimal percobaan
   is_free     Boolean  @default(false)
   harga       Int?     // dalam rupiah, null jika gratis
@@ -121,6 +122,7 @@ model Package {
   payments  Payment[]
 
   @@index([tipe_paket, is_active])
+  @@index([kategori])
   @@map("packages")
 }
 

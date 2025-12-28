@@ -3,12 +3,14 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createQuestion } from '@/app/actions/admin/soal';
+import { KATEGORI_UKMPPD } from '@/lib/constants';
 
 export default function TambahSoalForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [tipeSoal, setTipeSoal] = useState('simulasi');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,48 +58,41 @@ export default function TambahSoalForm() {
         <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border p-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Tambah Soal Baru</h2>
 
-          {/* Kategori & Jenis Soal */}
+          {/* Tipe Soal & Kategori */}
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Kategori <span className="text-red-500">*</span>
+                Tipe Soal <span className="text-red-500">*</span>
               </label>
               <select
                 name="kategori"
-                id="kategori"
-                onChange={(e) => {
-                  const jenisSelect = document.getElementById('jenis_soal') as HTMLSelectElement;
-                  if (jenisSelect) {
-                    jenisSelect.disabled = e.target.value === 'ukmppd';
-                    if (e.target.value === 'ukmppd') jenisSelect.value = '';
-                  }
-                }}
+                value={tipeSoal}
+                onChange={(e) => setTipeSoal(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 required
                 disabled={isLoading}
               >
-                <option value="latihan">Latihan</option>
-                <option value="ukmppd">UKMPPD</option>
+                <option value="simulasi">Simulasi UKMPPD</option>
+                <option value="latihan">Latihan UKMPPD</option>
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Jenis Soal <span className="text-gray-500">(khusus latihan)</span>
+                Kategori Sistem <span className="text-red-500">*</span>
               </label>
               <select
                 name="jenis_soal"
-                id="jenis_soal"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                required
                 disabled={isLoading}
               >
-                <option value="">-- Pilih Jenis --</option>
-                <option value="matematika">Matematika</option>
-                <option value="fisika">Fisika</option>
-                <option value="kimia">Kimia</option>
-                <option value="bahasa_indonesia">Bahasa Indonesia</option>
-                <option value="bahasa_inggris">Bahasa Inggris</option>
+                <option value="">-- Pilih Kategori --</option>
+                {KATEGORI_UKMPPD.map((kategori, index) => (
+                  <option key={index} value={kategori}>{kategori}</option>
+                ))}
               </select>
+              <p className="text-xs text-gray-500 mt-1">16 kategori sistem UKMPPD</p>
             </div>
           </div>
 

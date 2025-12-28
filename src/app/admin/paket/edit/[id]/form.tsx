@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updatePackage, assignQuestionsToPackage } from '@/app/actions/admin/paket';
 import Link from 'next/link';
+import { KATEGORI_UKMPPD } from '@/lib/constants';
 
 interface Question {
   id: string;
@@ -20,6 +21,7 @@ interface Package {
   id: string;
   nama: string;
   tipe_paket: string;
+  kategori?: string | null;
   total_soal: number;
   max_attempt: number;
   is_free: boolean;
@@ -40,6 +42,7 @@ export default function EditPaketForm({
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isFree, setIsFree] = useState(paket.is_free);
+  const [tipePaket, setTipePaket] = useState(paket.tipe_paket);
   
   // Filter & search state
   const [filterKategori, setFilterKategori] = useState('');
@@ -178,15 +181,39 @@ export default function EditPaketForm({
                   </label>
                   <select
                     name="tipe_paket"
+                    value={tipePaket}
+                    onChange={(e) => setTipePaket(e.target.value)}
                     defaultValue={paket.tipe_paket}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     required
                     disabled={isLoading}
                   >
-                    <option value="latihan">Latihan</option>
-                    <option value="ukmppd">UKMPPD</option>
+                    <option value="latihan">Latihan UKMPPD</option>
+                    <option value="simulasi">Simulasi UKMPPD</option>
                   </select>
                 </div>
+
+                {/* Kategori (for both Latihan and Simulasi) */}
+                {(tipePaket === 'latihan' || tipePaket === 'simulasi') && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Kategori Sistem <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="kategori"
+                      defaultValue={paket.kategori || ''}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      required
+                      disabled={isLoading}
+                    >
+                      <option value="">Pilih Kategori</option>
+                      {KATEGORI_UKMPPD.map((kat, index) => (
+                        <option key={index} value={kat}>{kat}</option>
+                      ))}
+                    </select>
+                    <p className="mt-1 text-xs text-gray-500">16 kategori sistem UKMPPD</p>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -293,9 +320,9 @@ export default function EditPaketForm({
                     onChange={(e) => setFilterKategori(e.target.value)}
                     className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                   >
-                    <option value="">Semua Kategori</option>
-                    <option value="latihan">Latihan</option>
-                    <option value="ukmppd">UKMPPD</option>
+                    <option value="">Semua Tipe Soal</option>
+                    <option value="simulasi">Simulasi UKMPPD</option>
+                    <option value="latihan">Latihan UKMPPD</option>
                   </select>
 
                   <select
@@ -303,12 +330,10 @@ export default function EditPaketForm({
                     onChange={(e) => setFilterJenis(e.target.value)}
                     className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                   >
-                    <option value="">Semua Jenis</option>
-                    <option value="matematika">Matematika</option>
-                    <option value="fisika">Fisika</option>
-                    <option value="kimia">Kimia</option>
-                    <option value="bahasa_indonesia">Bahasa Indonesia</option>
-                    <option value="bahasa_inggris">Bahasa Inggris</option>
+                    <option value="">Semua Kategori Sistem</option>
+                    {KATEGORI_UKMPPD.map((kategori, index) => (
+                      <option key={index} value={kategori}>{kategori}</option>
+                    ))}
                   </select>
                 </div>
 
