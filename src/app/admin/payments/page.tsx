@@ -215,8 +215,17 @@ export default async function AdminPaymentsPage({
                           <div className="text-xs text-gray-500">{payment.user.email}</div>
                         </td>
                         <td className="py-4 px-6">
-                          <div className="text-sm text-gray-700">{payment.package.nama}</div>
-                          <div className="text-xs text-gray-500 uppercase">{payment.package.tipe_paket}</div>
+                          {payment.package ? (
+                            <>
+                              <div className="text-sm text-gray-700">{payment.package.nama}</div>
+                              <div className="text-xs text-gray-500 uppercase">{payment.package.tipe_paket}</div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="text-sm font-semibold text-purple-700">💎 Langganan Premium</div>
+                              <div className="text-xs text-purple-500">30 Hari Akses Penuh</div>
+                            </>
+                          )}
                         </td>
                         <td className="py-4 px-6">
                           <div className="text-sm font-semibold text-gray-800">

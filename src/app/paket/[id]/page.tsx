@@ -1,6 +1,5 @@
 import { requireAuth } from '@/lib/auth';
 import { logoutAction } from '@/app/actions/auth';
-import { checkPaymentStatus } from '@/app/actions/payment';
 import { verifyPayment } from '@/app/actions/payment-verify';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
@@ -22,6 +21,21 @@ export default async function PaketDetailPage({
   if (searchParams.order_id && searchParams.payment === 'success') {
     await verifyPayment(searchParams.order_id);
   }
+  
+  // Fetch current user with subscription info
+  const currentUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: {
+      id: true,
+      subscriptionStatus: true,
+      subscriptionEnd: true,
+    }
+  });
+
+  // Check if subscription is active
+  const isSubscriptionActive = currentUser?.subscriptionStatus === 'active' 
+    && currentUser?.subscriptionEnd 
+    && new Date(currentUser.subscriptionEnd) > new Date();
   
   const paket = await prisma.package.findUnique({
     where: { id: params.id },
@@ -54,9 +68,31 @@ export default async function PaketDetailPage({
     orderBy: { selesai_at: 'desc' }
   });
 
-  // Check payment status
-  const paymentStatus = await checkPaymentStatus(paket.id);
-  const hasPaid = paket.is_free || (paket.harga === 0) || (paymentStatus?.hasPaid ?? false);
+  // Check payment status - free package OR has active subscription OR has paid for this specific package
+  
+  // Check if user has paid specifically for this package (individual purchase)
+  const hasPackagePayment = await prisma.payment.findFirst({
+    where: {
+      user_id: user.id,
+      package_id: paket.id,
+      status: 'paid'
+    }
+  });
+  
+  // Debug logging
+  console.log('=== Package Access Check ===');
+  console.log('Package ID:', paket.id);
+  console.log('User ID:', user.id);
+  console.log('Is Free:', paket.is_free);
+  console.log('Price:', paket.harga);
+  console.log('Subscription Active:', isSubscriptionActive);
+  console.log('Has Package Payment:', hasPackagePayment !== null);
+  console.log('Package Payment:', hasPackagePayment);
+  
+  const hasPaid = paket.is_free || (paket.harga === 0) || isSubscriptionActive || hasPackagePayment !== null;
+  
+  console.log('Final hasPaid:', hasPaid);
+  console.log('===========================');
 
   // Check for pending payment
   const pendingPayment = await prisma.payment.findFirst({
@@ -169,17 +205,61 @@ export default async function PaketDetailPage({
             <div className="space-y-4">
               {!hasPaid && (paket.harga || 0) > 0 && canAttempt ? (
                 <>
-                  {pendingPayment && (
-                    <VerifyPaymentButton orderId={pendingPayment.order_id} />
-                  )}
-                  <BuyButton 
-                    packageId={paket.id} 
-                    price={paket.harga || 0} 
-                    hasPaid={hasPaid}
-                  />
+                  {/* Premium package - redirect to subscription */}
+                  <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-6">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="text-3xl">💎</div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-purple-900 mb-2">Paket Premium</h3>
+                        <p className="text-sm text-purple-700 mb-3">
+                          Paket ini termasuk dalam langganan premium. Dengan berlangganan Rp 55.000/bulan, 
+                          Anda mendapat akses ke <strong>SEMUA paket simulasi dan latihan</strong> tanpa batas!
+                        </p>
+                        <ul className="text-sm text-purple-700 space-y-1 mb-4">
+                          <li>✅ Akses semua paket premium</li>
+                          <li>✅ Hemat hingga 90% dibanding beli satuan</li>
+                          <li>✅ Update konten rutin setiap bulan</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <Link
+                      href="/subscription"
+                      className="block w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-center py-4 rounded-lg font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all"
+                    >
+                      🚀 Berlangganan Sekarang
+                    </Link>
+                  </div>
                 </>
               ) : canAttempt && hasPaid ? (
-                <MulaiUjianButton packageId={paket.id} />
+                <>
+                  {/* Show subscription status if active */}
+                  {isSubscriptionActive && currentUser?.subscriptionEnd && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <div className="flex items-center gap-2">
+                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-green-800 font-medium">
+                          ✨ Akses Premium Aktif - Berlaku hingga {new Date(currentUser.subscriptionEnd).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  {/* Show individual package purchase status */}
+                  {!isSubscriptionActive && hasPackagePayment && (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <div className="flex items-center gap-2">
+                        <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-blue-800 font-medium">
+                          ✅ Paket Sudah Dibeli
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <MulaiUjianButton packageId={paket.id} />
+                </>
               ) : (
                 <button
                   disabled

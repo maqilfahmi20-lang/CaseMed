@@ -22,6 +22,10 @@ export const KATEGORI_UKMPPD = [
   'Gawat Darurat dan Patient Safety'
 ] as const;
 
+// Subscription constants (Netflix-style monthly subscription)
+export const SUBSCRIPTION_PRICE = 55000; // Rp 55.000 per bulan
+export const SUBSCRIPTION_DURATION_DAYS = 30; // 30 hari
+
 // Exam durations in seconds
 export const EXAM_DURATIONS = {
   LATIHAN: 1800, // 30 minutes

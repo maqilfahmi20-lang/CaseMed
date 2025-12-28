@@ -10,7 +10,7 @@ export default async function AdminPaketPage() {
   // Fetch packages grouped by type
   const simulasiPackages = await prisma.package.findMany({
     where: { tipe_paket: 'simulasi' },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: 'asc' },
     select: {
       id: true,
       nama: true,
@@ -34,7 +34,7 @@ export default async function AdminPaketPage() {
 
   const latihanPackages = await prisma.package.findMany({
     where: { tipe_paket: 'latihan' },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: 'asc' },
     select: {
       id: true,
       nama: true,
@@ -90,7 +90,13 @@ export default async function AdminPaketPage() {
           <div className="flex justify-between items-center mb-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-800">Kelola Paket UKMPPD</h2>
-              <p className="text-gray-600">Simulasi: {simulasiPackages.length} | Latihan: {latihanPackages.length}</p>
+              <p className="text-gray-600">
+                Simulasi: {simulasiPackages.length} paket | 
+                Latihan: {latihanPackages.length} paket
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                ℹ️ Paket ditampilkan berurutan (Paket 1, 2, 3...) di user dashboard
+              </p>
             </div>
             <Link
               href="/admin/paket/tambah"
@@ -100,13 +106,28 @@ export default async function AdminPaketPage() {
             </Link>
           </div>
 
+          {/* Info Box */}
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">💡</span>
+              <div>
+                <h4 className="font-semibold text-gray-800 mb-1">Sistem Subscription Aktif</h4>
+                <p className="text-sm text-gray-600">
+                  User dengan subscription aktif dapat mengakses SEMUA paket premium tanpa perlu bayar per paket.
+                  Paket GRATIS tetap bisa diakses semua user.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Simulasi UKMPPD Section */}
           <div className="mb-12">
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6 text-white mb-4">
+            <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-6 text-white mb-4">
               <h3 className="text-2xl font-bold flex items-center gap-2">
                 🏥 Simulasi UKMPPD
                 <span className="text-lg font-normal">({simulasiPackages.length} paket)</span>
               </h3>
+              <p className="text-white/80 text-sm mt-1">Urutan sesuai tampilan di user (Paket 1, 2, 3...)</p>
             </div>
 
             {simulasiPackages.length === 0 ? (
@@ -116,21 +137,28 @@ export default async function AdminPaketPage() {
             ) : (
               <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
                 <table className="w-full">
-                  <thead className="bg-orange-50 border-b">
+                  <thead className="bg-purple-50 border-b">
                     <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">#</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Nama Paket</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Kategori</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Soal</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Harga</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tipe</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">Aksi</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {simulasiPackages.map((pkg) => (
+                    {simulasiPackages.map((pkg, index) => (
                       <tr key={pkg.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
+                          <div className="flex items-center justify-center w-8 h-8 bg-purple-100 text-purple-700 font-bold rounded-full">
+                            {index + 1}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
                           <div className="text-sm font-medium text-gray-900">{pkg.nama}</div>
+                          <div className="text-xs text-gray-500">ID: {pkg.id.slice(0, 8)}</div>
                         </td>
                         <td className="px-6 py-4">
                           <span className="text-sm text-gray-600">{pkg.kategori || '-'}</span>
@@ -140,9 +168,13 @@ export default async function AdminPaketPage() {
                         </td>
                         <td className="px-6 py-4 text-sm">
                           {pkg.harga === 0 || pkg.is_free ? (
-                            <span className="text-green-600 font-semibold">GRATIS</span>
+                            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                              🎁 GRATIS
+                            </span>
                           ) : (
-                            `Rp ${pkg.harga?.toLocaleString('id-ID')}`
+                            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                              💎 PREMIUM
+                            </span>
                           )}
                         </td>
                         <td className="px-6 py-4">
@@ -168,11 +200,12 @@ export default async function AdminPaketPage() {
 
           {/* Latihan UKMPPD Section */}
           <div>
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white mb-4">
+            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white mb-4">
               <h3 className="text-2xl font-bold flex items-center gap-2">
-                📝 Latihan UKMPPD per Sistem
+                📝 Latihan Soal per Sistem
                 <span className="text-lg font-normal">({latihanPackages.length} paket)</span>
               </h3>
+              <p className="text-white/80 text-sm mt-1">Urutan sesuai tampilan di user (Paket 1, 2, 3...)</p>
             </div>
 
             {latihanPackages.length === 0 ? (
@@ -182,21 +215,28 @@ export default async function AdminPaketPage() {
             ) : (
               <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
                 <table className="w-full">
-                  <thead className="bg-blue-50 border-b">
+                  <thead className="bg-green-50 border-b">
                     <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">#</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Nama Paket</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Kategori</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Soal</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Harga</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tipe</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">Aksi</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {latihanPackages.map((pkg) => (
+                    {latihanPackages.map((pkg, index) => (
                       <tr key={pkg.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
+                          <div className="flex items-center justify-center w-8 h-8 bg-green-100 text-green-700 font-bold rounded-full">
+                            {index + 1}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
                           <div className="text-sm font-medium text-gray-900">{pkg.nama}</div>
+                          <div className="text-xs text-gray-500">ID: {pkg.id.slice(0, 8)}</div>
                         </td>
                         <td className="px-6 py-4">
                           <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
@@ -208,9 +248,13 @@ export default async function AdminPaketPage() {
                         </td>
                         <td className="px-6 py-4 text-sm">
                           {pkg.harga === 0 || pkg.is_free ? (
-                            <span className="text-green-600 font-semibold">GRATIS</span>
+                            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                              🎁 GRATIS
+                            </span>
                           ) : (
-                            `Rp ${pkg.harga?.toLocaleString('id-ID')}`
+                            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                              💎 PREMIUM
+                            </span>
                           )}
                         </td>
                         <td className="px-6 py-4">

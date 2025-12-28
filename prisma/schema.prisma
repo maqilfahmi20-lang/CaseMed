@@ -24,6 +24,12 @@ model User {
   image         String?
   emailVerified DateTime?
   
+  // Subscription fields (Netflix-style monthly subscription)
+  isPremium            Boolean   @default(false)
+  subscriptionStatus   String    @default("inactive") // "active", "inactive", "expired"
+  subscriptionStart    DateTime?
+  subscriptionEnd      DateTime?
+  
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -183,17 +189,18 @@ model AttemptQuestion {
 model Payment {
   id         String   @id @default(cuid())
   user_id    String
-  package_id String
+  package_id String?  // Nullable untuk subscription payment
   order_id   String   @unique // ID order Midtrans
   jumlah     Int      // jumlah pembayaran dalam rupiah
   status     String   @default("pending") // "pending", "paid", "failed"
+  paymentType String  @default("package") // "package" atau "subscription"
   snap_token String?  // token untuk tampilkan QR Midtrans
   paid_at    DateTime?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  package Package @relation(fields: [package_id], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  package Package? @relation(fields: [package_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@index([package_id])

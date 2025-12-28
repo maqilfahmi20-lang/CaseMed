@@ -1,18 +1,33 @@
 import { requireAuth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { KATEGORI_UKMPPD } from '@/lib/constants';
 
 export default async function LatihanPage() {
   const user = await requireAuth();
   
-  // Group packages by kategori
+  // Fetch current user with subscription info
+  const currentUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: {
+      id: true,
+      isPremium: true,
+      subscriptionStatus: true,
+      subscriptionEnd: true,
+    }
+  });
+
+  // Check if subscription is active
+  const isSubscriptionActive = currentUser?.subscriptionStatus === 'active' 
+    && currentUser?.subscriptionEnd 
+    && new Date(currentUser.subscriptionEnd) > new Date();
+
+  // Fetch all latihan packages
   const packages = await prisma.package.findMany({
     where: { 
       is_active: true,
       tipe_paket: 'latihan'
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: 'asc' },
     select: {
       id: true,
       nama: true,
@@ -22,25 +37,19 @@ export default async function LatihanPage() {
       max_attempt: true,
       is_free: true,
       harga: true,
-      is_active: true,
-      createdAt: true,
-      updatedAt: true,
       _count: {
         select: { questions: true }
       }
     }
   });
 
-  // Group by kategori
-  const groupedPackages = packages.reduce((acc, pkg) => {
-    const kategori = pkg.kategori || 'Lainnya';
-    if (!acc[kategori]) acc[kategori] = [];
-    acc[kategori].push(pkg);
-    return acc;
-  }, {} as Record<string, typeof packages>);
+  // Count packages by type
+  const totalPackages = packages.length;
+  const freePackages = packages.filter(p => p.is_free).length;
+  const premiumPackages = totalPackages - freePackages;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
       {/* Navbar */}
       <nav className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
@@ -48,7 +57,7 @@ export default async function LatihanPage() {
             <Link href="/dashboard" className="text-gray-600 hover:text-gray-800">
               ← Kembali
             </Link>
-            <h1 className="text-2xl font-bold text-blue-600">📝 Latihan UKMPPD</h1>
+            <h1 className="text-2xl font-bold text-green-600">📝 Latihan Soal</h1>
           </div>
         </div>
       </nav>
@@ -56,69 +65,138 @@ export default async function LatihanPage() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-8 text-white mb-8 shadow-lg">
-            <h2 className="text-3xl font-bold mb-2">Latihan UKMPPD per Sistem</h2>
-            <p className="text-white/90">Pilih kategori sistem untuk berlatih soal</p>
-          </div>
-
-          {/* 16 Kategori */}
-          {KATEGORI_UKMPPD.map((kategori, index) => {
-            const kategoriPackages = groupedPackages[kategori] || [];
+          {/* Header with Subscription Status */}
+          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-8 text-white mb-8 shadow-lg">
+            <h2 className="text-3xl font-bold mb-2">Latihan Soal UKMPPD</h2>
+            <p className="text-white/90 mb-4">Asah kemampuanmu dengan latihan soal per sistem</p>
             
-            return (
-              <div key={index} className="mb-8">
-                <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                      <div className="bg-blue-100 text-blue-600 font-bold text-xl rounded-full w-12 h-12 flex items-center justify-center">
-                        {index + 1}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-800">{kategori}</h3>
-                        <p className="text-sm text-gray-600">{kategoriPackages.length} paket tersedia</p>
+            {isSubscriptionActive ? (
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">✨</span>
+                  <div>
+                    <div className="font-semibold">Akses Premium Aktif</div>
+                    <div className="text-sm text-white/80">
+                      Berlaku hingga {new Date(currentUser.subscriptionEnd!).toLocaleDateString('id-ID', { 
+                        day: 'numeric', 
+                        month: 'long', 
+                        year: 'numeric' 
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🔒</span>
+                    <div>
+                      <div className="font-semibold">Upgrade ke Premium</div>
+                      <div className="text-sm text-white/80">
+                        Akses {premiumPackages} paket premium hanya Rp 55.000/bulan
                       </div>
                     </div>
                   </div>
-
-                  {kategoriPackages.length === 0 ? (
-                    <div className="bg-gray-50 rounded-lg p-6 text-center">
-                      <p className="text-gray-500">Belum ada paket untuk kategori ini</p>
-                    </div>
-                  ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                      {kategoriPackages.map((pkg) => (
-                        <Link
-                          key={pkg.id}
-                          href={`/paket/${pkg.id}`}
-                          className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border-2 border-blue-200 hover:border-blue-400 hover:shadow-md transition-all"
-                        >
-                          <h4 className="font-bold text-gray-800 mb-2">{pkg.nama}</h4>
-                          
-                          <div className="flex items-center gap-3 text-sm text-gray-600 mb-3">
-                            <div className="flex items-center gap-1">
-                              <span>📝</span>
-                              <span><strong>{pkg._count.questions}</strong> soal</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <span>🔄</span>
-                              <span><strong>{pkg.max_attempt}x</strong></span>
-                            </div>
-                          </div>
-
-                          <div className="bg-white rounded px-3 py-2 text-center">
-                            <span className="font-bold text-blue-600">
-                              {pkg.harga === 0 ? 'GRATIS' : `Rp ${(pkg.harga || 0).toLocaleString('id-ID')}`}
-                            </span>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <Link href="/subscription">
+                    <button className="bg-white text-green-600 px-6 py-2 rounded-lg font-semibold hover:bg-green-50 transition">
+                      Subscribe →
+                    </button>
+                  </Link>
                 </div>
               </div>
-            );
-          })}
+            )}
+
+            <div className="grid grid-cols-3 gap-4 mt-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold">{totalPackages}</div>
+                <div className="text-sm text-white/80">Total Paket</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold">{freePackages}</div>
+                <div className="text-sm text-white/80">Gratis</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold">{premiumPackages}</div>
+                <div className="text-sm text-white/80">Premium</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Packages List - Numbered */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {packages.map((pkg, index) => {
+              const isPremium = !pkg.is_free && (pkg.harga || 0) > 0;
+              const hasAccess = pkg.is_free || isSubscriptionActive;
+
+              return (
+                <Link
+                  key={pkg.id}
+                  href={hasAccess ? `/paket/${pkg.id}` : '/subscription'}
+                  className={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-all p-6 border-2 ${
+                    hasAccess 
+                      ? 'border-green-200 hover:border-green-400' 
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  {/* Package Number Badge */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`${
+                      isPremium 
+                        ? 'bg-gradient-to-br from-yellow-400 to-yellow-600' 
+                        : 'bg-gradient-to-br from-green-400 to-green-600'
+                    } text-white font-bold text-lg rounded-full w-12 h-12 flex items-center justify-center shadow-lg`}>
+                      {index + 1}
+                    </div>
+                    
+                    {isPremium && (
+                      <div className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full">
+                        {hasAccess ? '✨ Premium' : '🔒 Premium'}
+                      </div>
+                    )}
+                    
+                    {pkg.is_free && (
+                      <div className="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
+                        🎁 Gratis
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Package Info */}
+                  <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 min-h-[3rem]">
+                    {pkg.nama}
+                  </h3>
+
+                  {pkg.kategori && (
+                    <div className="text-xs text-gray-500 mb-3 flex items-center gap-1">
+                      <span>📚</span>
+                      <span className="line-clamp-1">{pkg.kategori}</span>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex items-center gap-1">
+                      <span>📝</span>
+                      <span>{pkg._count.questions} soal</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span>🔄</span>
+                      <span>{pkg.max_attempt}x</span>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className={`text-center py-2 rounded-lg font-semibold ${
+                    hasAccess
+                      ? 'bg-green-500 text-white'
+                      : 'bg-gray-100 text-gray-600'
+                  }`}>
+                    {hasAccess ? 'Mulai Latihan →' : 'Subscribe →'}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
 
           {packages.length === 0 && (
             <div className="bg-white rounded-xl shadow-lg border p-12 text-center">

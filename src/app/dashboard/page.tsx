@@ -7,6 +7,24 @@ import { KATEGORI_UKMPPD } from '@/lib/constants';
 export default async function DashboardPage() {
   const user = await requireAuth();
   
+  // Fetch current user with subscription info
+  const currentUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: {
+      id: true,
+      nama: true,
+      isPremium: true,
+      subscriptionStatus: true,
+      subscriptionStart: true,
+      subscriptionEnd: true,
+    }
+  });
+
+  // Check if subscription is active
+  const isSubscriptionActive = currentUser?.subscriptionStatus === 'active' 
+    && currentUser?.subscriptionEnd 
+    && new Date(currentUser.subscriptionEnd) > new Date();
+  
   // Fetch user stats
   const attempts = await prisma.userAttempt.count({
     where: { user_id: user.id }
@@ -65,6 +83,57 @@ export default async function DashboardPage() {
             <p className="text-white/90">Pilih mode latihan Anda</p>
           </div>
 
+          {/* Subscription Status Card */}
+          {isSubscriptionActive && currentUser?.subscriptionEnd ? (
+            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white mb-8 shadow-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="bg-white/20 p-3 rounded-full">
+                    <span className="text-3xl">💎</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-1">Status: Premium Aktif</h3>
+                    <p className="text-white/90 text-sm">
+                      Berlaku hingga: {new Date(currentUser.subscriptionEnd).toLocaleDateString('id-ID', { 
+                        day: 'numeric', 
+                        month: 'long', 
+                        year: 'numeric' 
+                      })}
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/subscription"
+                  className="bg-white text-green-600 px-4 py-2 rounded-lg font-semibold hover:bg-green-50 transition-colors"
+                >
+                  Detail →
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-6 text-white mb-8 shadow-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="bg-white/20 p-3 rounded-full">
+                    <span className="text-3xl">🔒</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-1">Upgrade ke Premium</h3>
+                    <p className="text-white/90 text-sm">
+                      Akses semua paket simulasi & latihan hanya Rp 55.000/bulan
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/subscription"
+                  className="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors"
+                >
+                  Berlangganan →
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Stats Cards */}
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div className="bg-white rounded-xl p-6 shadow-lg border">
@@ -120,9 +189,9 @@ export default async function DashboardPage() {
               className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-8 text-white shadow-2xl hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
               <div className="text-6xl mb-6">📝</div>
-              <h3 className="text-3xl font-bold mb-3">Latihan UKMPPD</h3>
+              <h3 className="text-3xl font-bold mb-3">Latihan Soal</h3>
               <p className="text-white/90 mb-6 text-lg">
-                Latihan per sistem dengan 16 kategori materi UKMPPD
+                Latihan per paket dengan 16 kategori materi UKMPPD
               </p>
               <div className="bg-white/20 backdrop-blur rounded-lg p-4 mb-6">
                 <div className="flex items-center justify-between mb-2">
@@ -131,7 +200,7 @@ export default async function DashboardPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-white/90">Kategori</span>
-                  <span className="font-bold text-xl">16 Sistem</span>
+                  <span className="font-bold text-xl">16 Materi</span>
                 </div>
               </div>
               <div className="flex items-center justify-between bg-white/10 backdrop-blur rounded-lg px-6 py-4">

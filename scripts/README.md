@@ -52,6 +52,87 @@ node scripts/create-test-user.js
 
 ---
 
+## 💎 Subscription Management Scripts (Development)
+
+### simulate-payment-success.js
+**🔥 GUNAKAN INI UNTUK TESTING SUBSCRIPTION!**
+
+Simulate Midtrans payment success untuk complete pending payments dan aktivasi subscription.
+
+```bash
+# Menggunakan email (akan ambil pending payment terbaru)
+node scripts/simulate-payment-success.js user@email.com
+
+# Menggunakan order ID
+node scripts/simulate-payment-success.js SUB-cmjpxryr-1766938935742
+```
+
+**Kapan digunakan:**
+- User baru subscribe tapi payment stuck di "pending"
+- Testing subscription flow di development
+- Midtrans sandbox tidak auto-complete payment
+
+**Output:**
+```
+✅ Payment marked as paid!
+💎 Subscription Activated!
+   User: user@email.com
+   Duration: 30 days
+🎉 User now has access to ALL premium packages!
+```
+
+---
+
+### auto-complete-payments.js
+Auto-complete **SEMUA** pending subscription payments sekaligus.
+
+```bash
+node scripts/auto-complete-payments.js
+```
+
+**Gunakan untuk:** Bulk testing - activate semua pending subscriptions
+
+---
+
+### activate-subscription.js
+Manually activate subscription untuk user (tanpa payment).
+
+```bash
+node scripts/activate-subscription.js user@email.com
+```
+
+---
+
+### show-user-access.js
+Lihat package mana saja yang bisa diakses user.
+
+```bash
+node scripts/show-user-access.js user@email.com
+```
+
+---
+
+### check-latest-payments.js
+Lihat 10 transaksi pembayaran terbaru.
+
+```bash
+node scripts/check-latest-payments.js
+```
+
+---
+
+## 🧪 Development Workflow: Testing Subscription
+
+1. **User register** dan klik tombol **"Subscribe"**
+2. Payment dibuat tapi status **"pending"** (Midtrans sandbox tidak auto-complete)
+3. **Jalankan script simulation:**
+   ```bash
+   node scripts/simulate-payment-success.js user@email.com
+   ```
+4. User **refresh browser** → Semua premium packages terbuka! ✅
+
+---
+
 ## 🔍 Troubleshooting
 
 ### Error: "Can't reach database server"

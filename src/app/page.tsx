@@ -195,6 +195,102 @@ export default function Home() {
             </p>
           </motion.div>
         </motion.div>
+
+        {/* Pricing Section - Subscription Offer */}
+        <motion.div 
+          className="mt-20 max-w-4xl mx-auto"
+          variants={containerVariants}
+        >
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">💎 Paket Langganan Premium</h2>
+            <p className="text-xl text-white/90">Akses unlimited ke semua soal latihan & simulasi UKMPPD</p>
+          </motion.div>
+
+          <motion.div 
+            variants={itemVariants}
+            whileHover={{ scale: 1.02, y: -5 }}
+            className="bg-white rounded-2xl shadow-2xl overflow-hidden"
+          >
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-center">
+              <div className="text-white/90 text-sm font-semibold uppercase tracking-wide mb-2">Paket Berlangganan</div>
+              <div className="text-5xl font-bold text-white mb-2">Rp 55.000</div>
+              <div className="text-white/80 text-lg">per bulan</div>
+            </div>
+
+            <div className="p-8">
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <div className="text-green-500 text-xl">✓</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">Akses Unlimited</div>
+                    <div className="text-sm text-gray-600">Semua paket latihan & simulasi (51 paket)</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="text-green-500 text-xl">✓</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">1000+ Soal Premium</div>
+                    <div className="text-sm text-gray-600">Bank soal lengkap sesuai blueprint UKMPPD</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="text-green-500 text-xl">✓</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">Pembahasan Detail</div>
+                    <div className="text-sm text-gray-600">Penjelasan lengkap setiap jawaban</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="text-green-500 text-xl">✓</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">Update Berkala</div>
+                    <div className="text-sm text-gray-600">Soal baru ditambahkan setiap minggu</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="text-green-500 text-xl">✓</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">Progress Tracking</div>
+                    <div className="text-sm text-gray-600">Monitor perkembangan belajar kamu</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 rounded-lg p-4 mb-6">
+                <div className="text-center">
+                  <div className="text-sm text-gray-600 mb-1">Hemat hingga</div>
+                  <div className="text-2xl font-bold text-blue-600">94%</div>
+                  <div className="text-xs text-gray-500">dibanding beli paket satuan</div>
+                </div>
+              </div>
+
+              <Link href="/register">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition"
+                >
+                  Daftar & Berlangganan Sekarang →
+                </motion.button>
+              </Link>
+
+              <p className="text-center text-sm text-gray-500 mt-4">
+                🔒 Pembayaran aman via Midtrans • QRIS, Transfer Bank, E-Wallet
+              </p>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Testimonial / Trust Badge */}
+        <motion.div 
+          variants={itemVariants}
+          className="mt-12 text-center"
+        >
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
+            <span className="text-2xl">🎓</span>
+            <span className="text-white font-semibold">Dipercaya oleh ribuan mahasiswa kedokteran se-Indonesia</span>
+          </div>
+        </motion.div>
       </motion.div>
 
       <Footer />

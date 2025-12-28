@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { SUBSCRIPTION_DURATION_DAYS } from '@/lib/constants';
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,7 +32,8 @@ export async function POST(req: NextRequest) {
 
     // Find payment record
     const payment = await prisma.payment.findUnique({
-      where: { order_id }
+      where: { order_id },
+      include: { user: true }
     });
 
     if (!payment) {
@@ -67,6 +69,25 @@ export async function POST(req: NextRequest) {
         paid_at: newStatus === 'paid' ? new Date() : null,
       }
     });
+
+    // If payment is successful and it's a subscription, activate subscription
+    if (newStatus === 'paid' && payment.paymentType === 'subscription') {
+      const subscriptionStart = new Date();
+      const subscriptionEnd = new Date();
+      subscriptionEnd.setDate(subscriptionEnd.getDate() + SUBSCRIPTION_DURATION_DAYS);
+
+      await prisma.user.update({
+        where: { id: payment.user_id },
+        data: {
+          isPremium: true,
+          subscriptionStatus: 'active',
+          subscriptionStart: subscriptionStart,
+          subscriptionEnd: subscriptionEnd,
+        }
+      });
+
+      console.log(`Subscription activated for user ${payment.user_id} until ${subscriptionEnd}`);
+    }
 
     console.log(`Payment ${order_id} updated to ${newStatus}`);
 
