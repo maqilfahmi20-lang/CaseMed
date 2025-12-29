@@ -68,7 +68,7 @@ export default async function LatihanPage() {
           {/* Header with Subscription Status */}
           <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-8 text-white mb-8 shadow-lg">
             <h2 className="text-3xl font-bold mb-2">Latihan Soal UKMPPD</h2>
-            <p className="text-white/90 mb-4">Asah kemampuanmu dengan latihan soal per sistem</p>
+            <p className="text-white/90 mb-4">Asah kemampuanmu dengan latihan soal</p>
             
             {isSubscriptionActive ? (
               <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
@@ -166,13 +166,6 @@ export default async function LatihanPage() {
                   <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 min-h-[3rem]">
                     {pkg.nama}
                   </h3>
-
-                  {pkg.kategori && (
-                    <div className="text-xs text-gray-500 mb-3 flex items-center gap-1">
-                      <span>📚</span>
-                      <span className="line-clamp-1">{pkg.kategori}</span>
-                    </div>
-                  )}
 
                   <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
                     <div className="flex items-center gap-1">

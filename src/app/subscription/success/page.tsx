@@ -1,11 +1,36 @@
 import Link from 'next/link';
 import { requireAuth } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
+import AutoCompleteSubscription from './AutoCompleteSubscription';
 
-export default async function SubscriptionSuccessPage() {
-  await requireAuth();
+export default async function SubscriptionSuccessPage({
+  searchParams,
+}: {
+  searchParams: { order_id?: string };
+}) {
+  const user = await requireAuth();
+  
+  // Get latest pending subscription payment for this user
+  let orderId = searchParams.order_id;
+  
+  if (!orderId) {
+    const latestPayment = await prisma.payment.findFirst({
+      where: {
+        user_id: user.id,
+        paymentType: 'subscription',
+        status: 'pending',
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+    
+    orderId = latestPayment?.order_id;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center p-4">
+      {/* Auto-complete component will trigger webhook in background */}
+      {orderId && <AutoCompleteSubscription orderId={orderId} />}
+      
       <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 text-center">
         <div className="mb-6">
           <div className="inline-block bg-green-100 p-4 rounded-full">

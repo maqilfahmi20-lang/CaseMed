@@ -125,8 +125,8 @@ export default function ContactPage() {
                   Berapa lama waktu mengerjakan ujian?
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Setiap sesi ujian memiliki waktu 2 jam (120 menit). Timer akan berjalan otomatis 
-                  saat Anda mulai ujian dan akan auto-submit jika waktu habis.
+                  Waktu ujian bervariasi berdasarkan jenis paket: Latihan Soal (30 menit), Simulasi UKMPPD (200 menit). 
+                  Timer akan berjalan otomatis saat Anda mulai ujian dan akan auto-submit jika waktu habis.
                 </p>
               </div>
 

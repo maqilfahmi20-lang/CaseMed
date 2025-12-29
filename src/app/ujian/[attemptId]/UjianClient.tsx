@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { submitAnswer, finishAttempt } from '@/app/actions/ujian';
+import { EXAM_DURATIONS } from '@/lib/constants';
 
 interface Question {
   id: string;
@@ -32,6 +33,7 @@ interface Attempt {
   package: {
     nama: string;
     total_soal: number;
+    tipe_paket: string;
   };
   questions: AttemptQuestion[];
 }
@@ -57,9 +59,12 @@ export default function UjianClient({ attempt }: { attempt: Attempt }) {
     });
     setAnswers(initialAnswers);
 
-    // Calculate time left (2 hours from start)
+    // Calculate time left based on package type
+    const tipePacket = attempt.package.tipe_paket.toUpperCase() as keyof typeof EXAM_DURATIONS;
+    const durationSeconds = EXAM_DURATIONS[tipePacket] || EXAM_DURATIONS.SIMULASI;
+    
     const startTime = new Date(attempt.mulai_at).getTime();
-    const endTime = startTime + (2 * 60 * 60 * 1000); // 2 hours
+    const endTime = startTime + (durationSeconds * 1000);
     const now = Date.now();
     const remaining = Math.max(0, Math.floor((endTime - now) / 1000));
     setTimeLeft(remaining);

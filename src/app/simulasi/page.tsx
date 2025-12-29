@@ -188,12 +188,6 @@ export default async function SimulasiPage() {
                                 <span>📝</span>
                                 <span>{pkg.total_soal} soal</span>
                               </div>
-                              {pkg.kategori && (
-                                <div className="flex items-center gap-1">
-                                  <span>🏷️</span>
-                                  <span className="text-xs">{pkg.kategori}</span>
-                                </div>
-                              )}
                             </div>
                           </div>
                         </div>
