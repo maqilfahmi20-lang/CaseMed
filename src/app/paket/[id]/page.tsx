@@ -155,9 +155,6 @@ export default async function PaketDetailPage({
               }`}>
                 {paket.tipe_paket.toUpperCase()}
               </span>
-              <div className="text-3xl font-bold text-blue-600">
-                {(paket.harga ?? 0) === 0 ? 'GRATIS' : `Rp ${(paket.harga ?? 0).toLocaleString('id-ID')}`}
-              </div>
             </div>
 
             <h1 className="text-3xl font-bold text-gray-800 mb-4">{paket.nama}</h1>

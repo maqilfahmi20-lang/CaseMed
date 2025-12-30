@@ -47,6 +47,25 @@ export default async function DashboardPage() {
     where: { is_active: true, tipe_paket: 'latihan' }
   });
 
+  // Fetch recent attempts with track record
+  const recentAttempts = await prisma.userAttempt.findMany({
+    where: {
+      user_id: user.id,
+      selesai_at: { not: null }
+    },
+    include: {
+      package: {
+        select: {
+          nama: true,
+          tipe_paket: true,
+          kategori: true
+        }
+      }
+    },
+    orderBy: { selesai_at: 'desc' },
+    take: 10
+  });
+
   const handleLogout = async () => {
     'use server';
     await logoutAction();
@@ -209,6 +228,125 @@ export default async function DashboardPage() {
               </div>
             </Link>
           </div>
+
+          {/* Track Record Section */}
+          {recentAttempts.length > 0 && (
+            <div className="bg-white rounded-2xl p-8 shadow-lg mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                  <span>📊</span>
+                  <span>Track Record Terbaru</span>
+                </h3>
+                <span className="text-sm text-gray-500">
+                  {recentAttempts.length} Ujian Terakhir
+                </span>
+              </div>
+              
+              <div className="space-y-3">
+                {recentAttempts.map((attempt, index) => {
+                  const nilai = attempt.nilai || 0;
+                  let nilaiColor = 'text-gray-600';
+                  let bgColor = 'bg-gray-50';
+                  let badgeColor = 'bg-gray-100 text-gray-700';
+                  let nilaiGrade = '';
+                  
+                  if (nilai >= 80) {
+                    nilaiColor = 'text-green-600';
+                    bgColor = 'bg-green-50';
+                    badgeColor = 'bg-green-100 text-green-700';
+                    nilaiGrade = 'Sangat Baik';
+                  } else if (nilai >= 70) {
+                    nilaiColor = 'text-blue-600';
+                    bgColor = 'bg-blue-50';
+                    badgeColor = 'bg-blue-100 text-blue-700';
+                    nilaiGrade = 'Baik';
+                  } else if (nilai >= 60) {
+                    nilaiColor = 'text-yellow-600';
+                    bgColor = 'bg-yellow-50';
+                    badgeColor = 'bg-yellow-100 text-yellow-700';
+                    nilaiGrade = 'Cukup';
+                  } else {
+                    nilaiColor = 'text-red-600';
+                    bgColor = 'bg-red-50';
+                    badgeColor = 'bg-red-100 text-red-700';
+                    nilaiGrade = 'Perlu Perbaikan';
+                  }
+
+                  return (
+                    <div key={attempt.id} className={`${bgColor} rounded-lg p-4 border-2 border-transparent hover:border-blue-300 transition`}>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 flex-1">
+                          {/* Attempt Number */}
+                          <div className="bg-white rounded-lg px-4 py-2 border shadow-sm">
+                            <div className="text-xs text-gray-500">#{index + 1}</div>
+                            <div className="text-sm font-bold text-gray-800">
+                              Attempt {attempt.attempt_ke}
+                            </div>
+                          </div>
+                          
+                          {/* Package Info */}
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className={`px-2 py-0.5 text-xs font-semibold rounded ${
+                                attempt.package.tipe_paket === 'simulasi' 
+                                  ? 'bg-orange-100 text-orange-700' 
+                                  : 'bg-blue-100 text-blue-700'
+                              }`}>
+                                {attempt.package.tipe_paket.toUpperCase()}
+                              </span>
+                              {attempt.package.kategori && (
+                                <span className="text-xs text-gray-500">
+                                  {attempt.package.kategori}
+                                </span>
+                              )}
+                            </div>
+                            <div className="font-semibold text-gray-800 mb-1">
+                              {attempt.package.nama}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {attempt.selesai_at && new Date(attempt.selesai_at).toLocaleString('id-ID', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Score and Grade */}
+                          <div className="text-right">
+                            <div className={`text-3xl font-bold ${nilaiColor} mb-1`}>
+                              {nilai.toFixed(0)}
+                            </div>
+                            <div className={`text-xs font-semibold px-2 py-1 rounded ${badgeColor}`}>
+                              {nilaiGrade}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-2 ml-4">
+                          <Link
+                            href={`/hasil/${attempt.id}`}
+                            className="px-4 py-2 bg-gray-600 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition"
+                          >
+                            Hasil
+                          </Link>
+                          <Link
+                            href={`/pembahasan/${attempt.id}`}
+                            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+                          >
+                            Pembahasan
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* 16 Kategori Preview */}
           <div className="bg-white rounded-2xl p-8 shadow-lg">
