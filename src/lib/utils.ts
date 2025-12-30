@@ -48,7 +48,7 @@ export function getScoreMessage(score: number): string {
 }
 
 /**
- * Format date to readable string
+ * Format date to readable string with WIB timezone
  */
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -58,6 +58,48 @@ export function formatDate(dateString: string): string {
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    timeZone: 'Asia/Jakarta',
+  });
+}
+
+/**
+ * Format date only (no time) with WIB timezone
+ */
+export function formatDateOnly(dateString: string | Date): string {
+  const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
+  return date.toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'Asia/Jakarta',
+  });
+}
+
+/**
+ * Format date and time with WIB timezone
+ */
+export function formatDateTime(dateString: string | Date): string {
+  const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
+  return date.toLocaleString('id-ID', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Asia/Jakarta',
+  });
+}
+
+/**
+ * Format time only with WIB timezone
+ */
+export function formatTimeOnly(dateString: string | Date): string {
+  const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
+  return date.toLocaleTimeString('id-ID', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZone: 'Asia/Jakarta',
   });
 }
 

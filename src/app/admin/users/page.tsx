@@ -1,6 +1,7 @@
 import { requireAdmin } from '@/lib/auth';
 import { logoutAction } from '@/app/actions/auth';
 import { prisma } from '@/lib/prisma';
+import { formatDateOnly } from '@/lib/utils';
 import Link from 'next/link';
 
 export default async function AdminUsersPage() {
@@ -102,11 +103,7 @@ export default async function AdminUsersPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {new Date(user.createdAt).toLocaleDateString('id-ID', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric'
-                        })}
+                        {formatDateOnly(user.createdAt)}
                       </td>
                     </tr>
                   ))}

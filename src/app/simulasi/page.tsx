@@ -1,5 +1,6 @@
 import { requireAuth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { formatDateOnly } from '@/lib/utils';
 import Link from 'next/link';
 import { SUBSCRIPTION_PRICE } from '@/lib/constants';
 
@@ -80,11 +81,7 @@ export default async function SimulasiPage() {
             {isSubscriptionActive && currentUser?.subscriptionEnd && (
               <div className="mt-4 bg-white/20 rounded-lg p-4">
                 <p className="font-semibold">✅ Status: Premium Aktif</p>
-                <p className="text-sm">Berlaku hingga: {new Date(currentUser.subscriptionEnd).toLocaleDateString('id-ID', { 
-                  day: 'numeric', 
-                  month: 'long', 
-                  year: 'numeric' 
-                })}</p>
+                <p className="text-sm">Berlaku hingga: {formatDateOnly(currentUser.subscriptionEnd)}</p>
               </div>
             )}
           </div>

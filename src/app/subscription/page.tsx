@@ -1,5 +1,6 @@
 import { requireAuth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { formatDateOnly } from '@/lib/utils';
 import Link from 'next/link';
 import { SUBSCRIPTION_PRICE, SUBSCRIPTION_DURATION_DAYS } from '@/lib/constants';
 import SubscribeButton from './SubscribeButton';
@@ -79,7 +80,7 @@ export default async function SubscriptionPage() {
                     })}
                   </p>
                   <p className="text-sm text-white/75 mt-2">
-                    Mulai: {new Date(currentUser.subscriptionStart!).toLocaleDateString('id-ID')}
+                    Mulai: {formatDateOnly(currentUser.subscriptionStart!)}
                   </p>
                 </div>
               </div>

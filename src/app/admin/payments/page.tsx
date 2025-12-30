@@ -1,5 +1,6 @@
 import { requireAuth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { formatDateOnly, formatTimeOnly, formatDateTime } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { logoutAction } from '@/app/actions/auth';
@@ -239,26 +240,14 @@ export default async function AdminPaymentsPage({
                         </td>
                         <td className="py-4 px-6">
                           <div className="text-sm text-gray-700">
-                            {new Date(payment.createdAt).toLocaleDateString('id-ID', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric'
-                            })}
+                            {formatDateOnly(payment.createdAt)}
                           </div>
                           <div className="text-xs text-gray-500">
-                            {new Date(payment.createdAt).toLocaleTimeString('id-ID', {
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
+                            {formatTimeOnly(payment.createdAt)}
                           </div>
                           {payment.paid_at && (
                             <div className="text-xs text-green-600 mt-1">
-                              Paid: {new Date(payment.paid_at).toLocaleDateString('id-ID', {
-                                day: 'numeric',
-                                month: 'short',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                              })}
+                              Paid: {formatDateTime(payment.paid_at)}
                             </div>
                           )}
                         </td>

@@ -1,6 +1,7 @@
 import { requireAuth } from '@/lib/auth';
 import { logoutAction } from '@/app/actions/auth';
 import { prisma } from '@/lib/prisma';
+import { formatDateOnly, formatDateTime } from '@/lib/utils';
 import Link from 'next/link';
 import { KATEGORI_UKMPPD } from '@/lib/constants';
 
@@ -113,11 +114,7 @@ export default async function DashboardPage() {
                   <div>
                     <h3 className="text-xl font-bold mb-1">Status: Premium Aktif</h3>
                     <p className="text-white/90 text-sm">
-                      Berlaku hingga: {new Date(currentUser.subscriptionEnd).toLocaleDateString('id-ID', { 
-                        day: 'numeric', 
-                        month: 'long', 
-                        year: 'numeric' 
-                      })}
+                      Berlaku hingga: {formatDateOnly(currentUser.subscriptionEnd)}
                     </p>
                   </div>
                 </div>
@@ -304,13 +301,7 @@ export default async function DashboardPage() {
                               {attempt.package.nama}
                             </div>
                             <div className="text-xs text-gray-500">
-                              {attempt.selesai_at && new Date(attempt.selesai_at).toLocaleString('id-ID', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                              })}
+                              {attempt.selesai_at && formatDateTime(attempt.selesai_at)}
                             </div>
                           </div>
 

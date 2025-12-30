@@ -2,6 +2,7 @@ import { requireAuth } from '@/lib/auth';
 import { logoutAction } from '@/app/actions/auth';
 import { verifyPayment } from '@/app/actions/payment-verify';
 import { prisma } from '@/lib/prisma';
+import { formatDateOnly, formatDateTime } from '@/lib/utils';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MulaiUjianButton from './MulaiUjianButton';
@@ -237,7 +238,7 @@ export default async function PaketDetailPage({
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                         <span className="text-green-800 font-medium">
-                          ✨ Akses Premium Aktif - Berlaku hingga {new Date(currentUser.subscriptionEnd).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                          ✨ Akses Premium Aktif - Berlaku hingga {formatDateOnly(currentUser.subscriptionEnd)}
                         </span>
                       </div>
                     </div>
@@ -303,13 +304,7 @@ export default async function PaketDetailPage({
                         </div>
                         <div>
                           <div className="text-sm text-gray-600 mb-1">
-                            {attempt.selesai_at && new Date(attempt.selesai_at).toLocaleString('id-ID', {
-                              day: 'numeric',
-                              month: 'long',
-                              year: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
+                            {attempt.selesai_at && formatDateTime(attempt.selesai_at)}
                           </div>
                           <div className={`text-xs font-medium ${nilaiColor}`}>
                             {nilaiGrade}

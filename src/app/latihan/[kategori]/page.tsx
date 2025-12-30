@@ -1,5 +1,6 @@
 import { requireAuth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { formatDateOnly } from '@/lib/utils';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -109,11 +110,7 @@ export default async function LatihanKategoriPage({
                   <div>
                     <div className="font-semibold">Akses Premium Aktif</div>
                     <div className="text-sm text-white/80">
-                      Berlaku hingga {new Date(currentUser.subscriptionEnd!).toLocaleDateString('id-ID', { 
-                        day: 'numeric', 
-                        month: 'long', 
-                        year: 'numeric' 
-                      })}
+                      Berlaku hingga {formatDateOnly(currentUser.subscriptionEnd!)}
                     </div>
                   </div>
                 </div>

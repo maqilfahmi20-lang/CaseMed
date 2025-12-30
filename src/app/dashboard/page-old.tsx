@@ -1,6 +1,7 @@
 import { requireAuth } from '@/lib/auth';
 import { logoutAction } from '@/app/actions/auth';
 import { prisma } from '@/lib/prisma';
+import { formatDateTime } from '@/lib/utils';
 import Link from 'next/link';
 
 export default async function DashboardPage() {
@@ -185,13 +186,7 @@ export default async function DashboardPage() {
                               <h4 className="font-semibold text-gray-800">{attempt.package.nama}</h4>
                             </div>
                             <p className="text-sm text-gray-500">
-                              {attempt.selesai_at && new Date(attempt.selesai_at).toLocaleString('id-ID', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                              })}
+                              {attempt.selesai_at && formatDateTime(attempt.selesai_at)}
                             </p>
                           </div>
                           <div className="flex items-center gap-4">
