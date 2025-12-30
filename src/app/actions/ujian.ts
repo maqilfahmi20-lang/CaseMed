@@ -39,9 +39,24 @@ export async function startAttempt(packageId: string) {
       return { error: 'Anda sudah mencapai batas maksimal percobaan' };
     }
 
-    // Check if package is paid and user has paid
+    // Check if package is paid and user has access
     if (!pkg.is_free && pkg.harga && pkg.harga > 0) {
-      const payment = await prisma.payment.findFirst({
+      // Get user subscription status
+      const currentUser = await prisma.user.findUnique({
+        where: { id: user.id },
+        select: {
+          subscriptionStatus: true,
+          subscriptionEnd: true,
+        }
+      });
+
+      // Check if subscription is active
+      const isSubscriptionActive = currentUser?.subscriptionStatus === 'active' 
+        && currentUser?.subscriptionEnd 
+        && new Date(currentUser.subscriptionEnd) > new Date();
+
+      // Check if user has paid specifically for this package
+      const hasPackagePayment = await prisma.payment.findFirst({
         where: {
           user_id: user.id,
           package_id: packageId,
@@ -49,8 +64,9 @@ export async function startAttempt(packageId: string) {
         }
       });
 
-      if (!payment) {
-        return { error: 'Anda belum membeli paket ini' };
+      // User must either have active subscription OR have paid for this specific package
+      if (!isSubscriptionActive && !hasPackagePayment) {
+        return { error: 'Anda belum membeli paket ini atau berlangganan premium' };
       }
     }
 
