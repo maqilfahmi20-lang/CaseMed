@@ -292,6 +292,214 @@ export default function HomeClient() {
         </div>
       </div>
 
+      {/* Pricing Section - Premium Package */}
+      <div className="bg-gradient-to-b from-white to-blue-50 py-20">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="max-w-5xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+          >
+            {/* Section Header */}
+            <motion.div variants={itemVariants} className="text-center mb-12">
+              <div className="inline-block bg-purple-100 text-purple-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                💎 PAKET PREMIUM
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Investasi Terbaik untuk Masa Depan Anda
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Akses unlimited ke semua fitur premium dengan harga yang sangat terjangkau
+              </p>
+            </motion.div>
+
+            {/* Main Pricing Card */}
+            <motion.div 
+              variants={itemVariants}
+              className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-purple-200"
+            >
+              {/* Header dengan Harga */}
+              <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 px-4 sm:px-8 py-8 sm:py-10 text-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-yellow-400 text-purple-900 px-3 sm:px-6 py-1 sm:py-2 rounded-bl-2xl font-bold text-xs sm:text-sm shadow-lg">
+                  🔥 BEST SELLER
+                </div>
+                <div className="relative z-10">
+                  <div className="text-white/90 text-xs sm:text-sm font-semibold uppercase tracking-wide mb-2">
+                    Paket Berlangganan Premium
+                  </div>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4">
+                    <div className="text-white/60 text-2xl sm:text-3xl font-bold line-through">
+                      Rp 900.000
+                    </div>
+                    <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-bold">
+                      HEMAT 94%
+                    </div>
+                  </div>
+                  <div className="text-white mb-2">
+                    <span className="text-4xl sm:text-6xl md:text-7xl font-bold">Rp 55.000</span>
+                  </div>
+                  <div className="text-white/90 text-base sm:text-xl">
+                    per bulan • unlimited access
+                  </div>
+                  <div className="mt-6">
+                    <Link href="/register">
+                      <motion.button
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-yellow-400 text-purple-900 px-6 sm:px-12 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-yellow-300 transition shadow-xl w-full sm:w-auto"
+                      >
+                        🚀 Mulai Berlangganan Sekarang
+                      </motion.button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Features List */}
+              <div className="p-4 sm:p-8 md:p-12">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
+                  ✨ Yang Anda Dapatkan:
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-6">
+                  {[
+                    {
+                      icon: "📚",
+                      title: "Akses Unlimited",
+                      desc: "Semua paket simulasi & latihan (51+ paket)"
+                    },
+                    {
+                      icon: "🎯",
+                      title: "1000+ Soal Premium",
+                      desc: "Bank soal lengkap sesuai blueprint UKMPPD"
+                    },
+                    {
+                      icon: "💡",
+                      title: "Pembahasan Detail",
+                      desc: "Penjelasan lengkap untuk setiap jawaban"
+                    },
+                    {
+                      icon: "🔄",
+                      title: "Update Rutin",
+                      desc: "Soal baru ditambahkan setiap minggu"
+                    },
+                    {
+                      icon: "📊",
+                      title: "Progress Tracking",
+                      desc: "Monitor perkembangan belajar Anda"
+                    },
+                    {
+                      icon: "⚡",
+                      title: "Simulasi CBT",
+                      desc: "Pengalaman ujian seperti UKMPPD asli"
+                    },
+                    {
+                      icon: "🏆",
+                      title: "Unlimited Attempts",
+                      desc: "Kerjakan soal tanpa batas percobaan"
+                    },
+                    {
+                      icon: "💳",
+                      title: "Pembayaran Mudah",
+                      desc: "QRIS, Transfer Bank, E-Wallet via Midtrans"
+                    }
+                  ].map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-start gap-2 sm:gap-4 p-3 sm:p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl border border-purple-100"
+                    >
+                      <div className="text-2xl sm:text-3xl flex-shrink-0">{feature.icon}</div>
+                      <div>
+                        <div className="font-bold text-gray-800 mb-1 text-sm sm:text-base">{feature.title}</div>
+                        <div className="text-xs sm:text-sm text-gray-600">{feature.desc}</div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Value Comparison */}
+                <div className="mt-6 sm:mt-10 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-4 sm:p-6 border-2 border-purple-200">
+                  <div className="text-center mb-4">
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">💰 Bandingkan Harga</h4>
+                    <p className="text-sm sm:text-base text-gray-600">Lebih hemat dengan berlangganan!</p>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div className="bg-white rounded-xl p-4 sm:p-6 text-center border border-red-200">
+                      <div className="text-red-600 font-semibold mb-2 text-sm sm:text-base">❌ Beli Satuan</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-gray-800 line-through mb-2">
+                        Rp 900.000
+                      </div>
+                      <div className="text-xs sm:text-sm text-gray-600">Untuk 51 paket</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-4 sm:p-6 text-center text-white border-4 border-yellow-400 relative">
+                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-purple-900 px-3 sm:px-4 py-1 rounded-full text-xs font-bold">
+                        RECOMMENDED
+                      </div>
+                      <div className="font-semibold mb-2 text-sm sm:text-base">✅ Berlangganan</div>
+                      <div className="text-3xl sm:text-5xl font-bold mb-2">
+                        Rp 55.000
+                      </div>
+                      <div className="text-xs sm:text-sm">Akses semua paket selama sebulan</div>
+                    </div>
+                  </div>
+                  <div className="text-center mt-6">
+                    <div className="inline-block bg-green-100 text-green-700 px-6 py-3 rounded-full font-bold">
+                      🎉 Hemat Rp 845.000 (94%)
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Methods */}
+                <div className="mt-6 sm:mt-8 text-center">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">💳 Metode Pembayaran Aman via Midtrans:</p>
+                  <div className="flex justify-center items-center gap-2 sm:gap-4 flex-wrap">
+                    <div className="bg-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg border shadow-sm">
+                      <span className="font-semibold text-gray-700 text-xs sm:text-sm">QRIS</span>
+                    </div>
+                    <div className="bg-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg border shadow-sm">
+                      <span className="font-semibold text-gray-700 text-xs sm:text-sm">Transfer Bank</span>
+                    </div>
+                    <div className="bg-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg border shadow-sm">
+                      <span className="font-semibold text-gray-700 text-xs sm:text-sm">GoPay</span>
+                    </div>
+                    <div className="bg-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg border shadow-sm">
+                      <span className="font-semibold text-gray-700 text-xs sm:text-sm">OVO</span>
+                    </div>
+                    <div className="bg-white px-2 sm:px-4 py-1 sm:py-2 rounded-lg border shadow-sm">
+                      <span className="font-semibold text-gray-700 text-xs sm:text-sm">DANA</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Guarantee */}
+                <div className="mt-8 text-center">
+                  <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-6 py-3 rounded-full border border-blue-200">
+                    <span className="text-2xl">🛡️</span>
+                    <span className="font-semibold">100% Aman & Terpercaya</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Testimonial / Trust Badge */}
+            <motion.div variants={itemVariants} className="mt-12 text-center">
+              <div className="inline-flex items-center gap-3 bg-white px-8 py-4 rounded-full shadow-lg border border-gray-200">
+                <span className="text-3xl">⭐</span>
+                <div className="text-left">
+                  <div className="font-bold text-gray-800">Rating 4.9/5.0</div>
+                  <div className="text-sm text-gray-600">dari 500+ pengguna aktif</div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
       {/* CTA Section */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 py-20">
         <div className="container mx-auto px-4">
