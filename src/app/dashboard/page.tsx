@@ -127,25 +127,118 @@ export default async function DashboardPage() {
               </div>
             </div>
           ) : (
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-6 text-white mb-8 shadow-lg">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="bg-white/20 p-3 rounded-full">
-                    <span className="text-3xl">🔒</span>
+            <div className="bg-white rounded-xl shadow-lg border-2 border-purple-200 overflow-hidden mb-8">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-white/20 p-2 rounded-lg">
+                      <span className="text-2xl">💎</span>
+                    </div>
+                    <div>
+                      <h3 className="text-white text-lg font-bold">Paket Premium CaseMed</h3>
+                      <p className="text-white/90 text-sm">Akses unlimited semua fitur</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-1">Upgrade ke Premium</h3>
-                    <p className="text-white/90 text-sm">
-                      Akses semua paket simulasi & latihan hanya Rp 55.000/bulan
-                    </p>
+                  <div className="text-right">
+                    <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/30">
+                      <div className="text-yellow-300 text-xs font-semibold uppercase tracking-wide">💰 Harga Spesial</div>
+                      <div className="text-white text-3xl font-bold">Rp 55.000</div>
+                      <div className="text-white/80 text-sm">per bulan</div>
+                    </div>
                   </div>
                 </div>
+              </div>
+              
+              <div className="p-6">
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <div>
+                        <div className="font-semibold text-gray-800">Akses Semua Paket</div>
+                        <div className="text-sm text-gray-600">{simulasiCount + latihanCount} paket simulasi & latihan</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <div>
+                        <div className="font-semibold text-gray-800">1000+ Soal Premium</div>
+                        <div className="text-sm text-gray-600">Update rutin setiap minggu</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <div>
+                        <div className="font-semibold text-gray-800">Pembahasan Detail</div>
+                        <div className="text-sm text-gray-600">Penjelasan lengkap setiap jawaban</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <div>
+                        <div className="font-semibold text-gray-800">Simulasi CBT</div>
+                        <div className="text-sm text-gray-600">Seperti ujian UKMPPD asli</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <div>
+                        <div className="font-semibold text-gray-800">Track Record</div>
+                        <div className="text-sm text-gray-600">Monitor progress belajar</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <div>
+                        <div className="font-semibold text-gray-800">Unlimited Attempt</div>
+                        <div className="text-sm text-gray-600">Tanpa batas percobaan</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-6 border border-purple-100">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-gradient-to-br from-yellow-400 to-orange-400 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                        🔥 HEMAT 94%
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-600">Beli satuan:</div>
+                        <div className="text-xl font-bold text-gray-800 line-through">Rp 900.000</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm text-gray-600">Dengan subscribe:</div>
+                      <div className="text-3xl font-bold text-purple-600">Rp 55.000</div>
+                    </div>
+                  </div>
+                </div>
+
                 <Link
                   href="/subscription"
-                  className="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors"
+                  className="block w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-center py-4 rounded-lg font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
                 >
-                  Berlangganan →
+                  🚀 Berlangganan Sekarang - Rp 55.000/bulan
                 </Link>
+                
+                <p className="text-center text-sm text-gray-500 mt-3">
+                  💳 Pembayaran aman via Midtrans • QRIS, Transfer Bank, E-Wallet
+                </p>
               </div>
             </div>
           )}
