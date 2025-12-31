@@ -1,0 +1,25 @@
+# robots.txt for CaseMed
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /paket/*
+Allow: /login
+Allow: /register
+Allow: /subscription
+Allow: /privacy-policy
+Allow: /terms
+Allow: /refund-policy
+
+# Disallow private/admin pages
+Disallow: /admin/*
+Disallow: /dashboard
+Disallow: /ujian/*
+Disallow: /hasil/*
+Disallow: /pembahasan/*
+Disallow: /latihan/*
+Disallow: /simulasi/*
+Disallow: /api/*
+
+# Sitemap location
+Sitemap: https://www.casemed.com/sitemap.xml
