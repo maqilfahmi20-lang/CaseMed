@@ -30,7 +30,7 @@ Direktori ini berisi dokumentasi penelitian dan materi akademik terkait kesehata
 - Dokumen resmi (Kemenkes RI, WHO, World Bank)
 - Buku teks standar epidemiologi dan kesehatan masyarakat
 
-**Panjang**: ~3 halaman (332 baris, ~23.400 karakter)
+**Panjang**: ~3-7 halaman (332 baris, ~3.064 kata)
 
 **Format**: Markdown dengan struktur akademik formal
 

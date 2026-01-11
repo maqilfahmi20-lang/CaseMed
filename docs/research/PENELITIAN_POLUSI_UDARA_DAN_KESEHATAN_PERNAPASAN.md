@@ -105,36 +105,48 @@ Penelitian ini menggunakan **Ecological Model of Health** yang dikembangkan oleh
 
 ### 3.2 Kerangka Konseptual
 
-```
-FAKTOR RISIKO                          MEDIATOR                   OUTCOME
-┌─────────────────────┐                                          ┌─────────────┐
-│ Environmental       │                                          │             │
-│ - PM10             │─────┐                                   │   ISPA      │
-│ - Jarak ke pencemar│     │                                   │             │
-└─────────────────────┘     │                                   │  Severity:  │
-                            │       ┌──────────────────┐        │  - Ringan   │
-┌─────────────────────┐     ├──────>│ Inflamasi        │───────>│  - Sedang   │
-│ Housing             │     │       │ Saluran          │        │  - Berat    │
-│ - Kepadatan hunian │─────┤       │ Pernapasan       │        │             │
-│ - Ventilasi        │     │       └──────────────────┘        │ Frekuensi:  │
-└─────────────────────┘     │                                   │ >3x/tahun   │
-                            │                                   └─────────────┘
-┌─────────────────────┐     │
-│ Behavioral          │     │
-│ - Merokok          │─────┤
-│ - Obat nyamuk      │     │
-└─────────────────────┘     │
-                            │
-┌─────────────────────┐     │
-│ Individual          │     │
-│ - Usia             │─────┘
-│ - Status gizi      │
-│ - Riwayat imunisasi│
-└─────────────────────┘
+**Model Hubungan Faktor Risiko dengan Kejadian ISPA**
 
-CONFOUNDERS: Status sosial ekonomi, pendidikan, akses kesehatan
-EFFECT MODIFIERS: Musim, cuaca, prevalensi penyakit menular
-```
+**A. FAKTOR RISIKO**
+
+1. **Environmental Factors** (Faktor Lingkungan)
+   - Konsentrasi PM10
+   - Jarak rumah ke sumber pencemar
+
+2. **Housing Factors** (Faktor Perumahan)
+   - Kepadatan hunian
+   - Kualitas ventilasi
+
+3. **Behavioral Factors** (Faktor Perilaku)
+   - Perilaku merokok di dalam rumah
+   - Penggunaan obat nyamuk semprot (frekuensi & durasi)
+
+4. **Individual Factors** (Faktor Individu)
+   - Usia
+   - Status gizi
+   - Riwayat imunisasi
+
+**B. MEDIATOR**
+- Inflamasi saluran pernapasan
+- Penurunan fungsi imun lokal
+- Kerusakan epitel mukosa respiratori
+
+**C. OUTCOME**
+- **Kejadian ISPA**
+  - Severity: Ringan / Sedang / Berat
+  - Frekuensi: >3 kali/tahun (recurring ISPA)
+
+**D. CONFOUNDERS** (Perancu)
+- Status sosial ekonomi
+- Tingkat pendidikan keluarga
+- Akses ke fasilitas kesehatan
+
+**E. EFFECT MODIFIERS** (Pengubah Efek)
+- Musim (hujan vs kemarau)
+- Kondisi cuaca
+- Prevalensi penyakit menular di komunitas
+
+**Hipotesis Jalur**: Environmental, housing, dan behavioral factors → Inflamasi saluran pernapasan → ISPA, dengan individual factors sebagai risk modifier dan confounders yang harus dikontrol dalam analisis multivariat.
 
 ### 3.3 Desain Penelitian
 
