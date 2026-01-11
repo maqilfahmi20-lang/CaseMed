@@ -192,6 +192,8 @@ Setiap soal memiliki:
 - **`MVP_ROADMAP.md`** - Development roadmap Phase 1-6
 - **`BACKEND_INTEGRATION.md`** - Backend integration guide
 - **`.env.example`** - Environment variables template
+- **`GAP_PENELITIAN_KUALITAS_UDARA.md`** - Tinjauan pustaka penelitian kualitas udara dalam ruangan dan kesehatan pernapasan (research gap analysis)
+- **`TENTANG_DOKUMEN_PENELITIAN.md`** - Penjelasan tentang dokumen penelitian
 
 ## 🎯 Untuk Demo
 
