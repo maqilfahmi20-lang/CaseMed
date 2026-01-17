@@ -4,49 +4,49 @@
 
 ### 1.1 Tinjauan Penelitian Sebelumnya
 
-Selama ini penelitian mengenai polusi udara dan penyakit pernapasan sudah cukup banyak, tapi ternyata masih ada beberapa celah yang belum banyak disentuh. Dari penelusuran literatur yang sudah dilakukan, ada beberapa variabel utama yang sering dijadikan fokus penelitian:
+Jadi gini, penelitian soal polusi udara dan penyakit pernapasan tuh sebenernya udah banyak banget. Tapi pas saya telusuri literatur-literaturnya, kok ya masih ada gap-gap yang lumayan signifikan. Berikut beberapa variabel yang sering jadi fokus:
 
 #### a) Partikulat Matter (PM10)
-PM10 ini sudah sering banget jadi bahan penelitian. Misalnya studi klasik dari Dockery et al. (1993) yang dimuat di New England Journal of Medicine itu berhasil membuktikan hubungan erat antara paparan PM10 dengan kematian akibat penyakit jantung dan paru. Di Indonesia sendiri, Nugraheni dkk (2018) lewat penelitiannya di Jurnal Kesehatan Lingkungan Indonesia menunjukkan kalau setiap kenaikan PM10 sebesar 10 μg/m³ bisa meningkatkan risiko ISPA pada anak sampai 1,8 kali lipat (OR=1,8; 95% CI: 1,3-2,5).
+Kalo PM10 mah udah mainstream banget di dunia penelitian. Ada studi klasiknya Dockery dkk tahun 1993 di NEJM yang ngebuktiin hubungan PM10 sama kematian akibat penyakit jantung-paru. Terus di Indonesia, penelitian Nugraheni cs (2018) di jurnal Kesling Indonesia nemuin kalo tiap PM10 naik 10 μg/m³, risiko ISPA di anak naik 1.8 kali - lumayan gede ya (OR=1.8, 95% CI: 1.3-2.5).
 
-Yang jadi masalah, kebanyakan studi tentang PM10 itu fokusnya di daerah industri atau kota-kota besar saja. Interaksi PM10 dengan polutan di dalam ruangan seperti asap obat nyamuk semprot masih jarang yang ngulik.
+Masalahnya apa? Ya itu... kebanyakan fokus di kawasan industri sama kota besar doang. Padahal interaksinya sama polutan indoor - contohnya asap obat nyamuk semprot - itu masih jarang yang ngangkat sebagai topik penelitian.
 
-#### b) Jarak Rumah ke Sumber Pencemar
-Studi Sulistyorini et al. (2016) yang terbit di Journal of Public Health Research and Development cukup menarik - mereka nemuin bahwa orang yang rumahnya dalam radius kurang dari 500 meter dari sumber pencemar (pabrik, jalan raya) punya risiko gangguan pernapasan 3,2 kali lebih tinggi (p<0,05). Jarak ternyata matter banget ya.
+#### b) Jarak Rumah ke Sumber Pencemar  
+Ada penelitian Sulistyorini dkk di tahun 2016 (dimuat di J Public Health Research & Development) yang cukup eye-opening. Mereka nemu kalau tinggal kurang dari 500 meter dari sumber polusi - entah itu pabrik, jalan raya, atau apalah - itu bikin risiko gangguan napas naik 3.2x (p<0.05). Jarak emang penting ternyata.
 
-Tapi sayangnya, penelitian tentang bagaimana polusi dari luar ini berinteraksi dengan polusi di dalam rumah (dari kegiatan sehari-hari) masih sangat terbatas.
+Yang bikin penasaran, hampir ga ada yang ngulik gimana caranya polusi dari luar (outdoor) ini "bekerjasama" sama polusi dari dalem rumah. Padahal kan menarik tuh kalau diteliti lebih lanjut.
 
 #### c) Kepadatan Hunian
-Dalam buku Kesehatan Masyarakat: Teori dan Aplikasi, Achmadi (2013) sudah mengingatkan bahwa rumah dengan kepadatan lebih dari 8 m² per orang itu rentan banget untuk penularan penyakit pernapasan. Hal ini diperkuat sama temuan Rahmatullah dkk (2019) yang dapet OR=2,7 untuk kasus ISPA di rumah yang padat penghuninya.
+Achmadi di bukunya (Kesmas: Teori & Aplikasi, 2013) bilang kalo rumah yang padat - maksudnya >8 m² per orang - tuh rawan banget buat penularan penyakit pernapasan. Data ini didukung ama Rahmatullah dkk tahun 2019 yang ngedapetin OR 2.7 buat ISPA di rumah padat.
 
-Namun gimana hubungan kepadatan rumah ini sama penggunaan insektisida di dalam ruangan? Itu belum banyak yang eksplorasi lebih dalam.
+Pertanyaan yang belom kejawab: gimana kalo kepadatan rumah ini dikombinasiin sama pemakaian insektisida indoor? Nah ini yang masih minim banget penelitiannya.
 
-#### d) Ventilasi Rumah
-Keputusan Menkes RI No. 829/1999 sebenarnya sudah mengatur standar ventilasi rumah yang sehat itu minimal 10% dari luas lantai. Wulandari dkk (2017) dalam Jurnal Kesehatan Masyarakat Nasional juga menemukan data yang ngeri - rumah dengan ventilasi kurang dari standar punya risiko ISPA sampai 4,3 kali lebih tinggi.
+#### d) Ventilasi Rumah  
+Sebenernya Kepmenkes No. 829/1999 udah ngatur standar ventilasi yang sehat - minimal 10% dari luas lantai. Wulandari cs di Jurnal Kesmas Nasional (2017) malah nemuin data yang agak serem: rumah dengan ventilasi di bawah standar punya risiko ISPA 4.3x lebih tinggi. Wah.
 
-Pertanyaannya, seberapa parah sih kalau ventilasi buruk ini ketemu sama polutan indoor dari semprotan obat nyamuk? Ini yang belum ada yang teliti secara spesifik.
+Nah, yang jadi pertanyaan gede: seberapa bahaya sih kalo ventilasi jelek ini "ketemu" sama polutan dari obat nyamuk semprot? Ini yang masih jadi blind spot di literatur.
 
 #### e) Perilaku Merokok
-Soal rokok sih udah banyak yang tau dampaknya. WHO (2019) dalam laporannya tentang epidemi tembakau global bilang kalau anak yang kena paparan asap rokok risikonya 2-3 kali lebih tinggi kena ISPA. Di konteks Indonesia, Kusumawati dkk (2020) bahkan nemuin angka yang lebih tinggi - prevalensi ISPA pada anak yang tinggal sama perokok aktif itu 3,8 kali lebih tinggi.
+Kalo soal rokok mah udah umum ya, semua juga tau bahayanya. Laporan WHO 2019 tentang epidemi tembakau bilang paparan asap rokok bikin risiko ISPA naik 2-3x di anak-anak. Di Indonesia sendiri lebih parah - Kusumawati dkk (2020) nemuin angka 3.8x lebih tinggi buat anak yang tinggal serumah ama perokok aktif.
 
-Cuma ya itu, penelitian yang menggabungkan faktor merokok dengan polutan indoor lain (termasuk obat nyamuk) dalam satu analisis multivariat masih jarang ditemukan.
+Tapi nih yang aneh... penelitian yang nge-combine faktor merokok dengan polutan indoor lain (kayak obat nyamuk gitu) dalam satu model multivariat masih jarang banget. Padahal ini penting loh.
 
-### 1.2 Obat Nyamuk Semprot - Variabel yang Sering Dilupakan
+### 1.2 Obat Nyamuk Semprot - Yang Sering Kelewat
 
-Nah, ini dia yang menarik. Hampir ga ada penelitian yang secara eksplisit ngeliat penggunaan obat nyamuk semprot sebagai faktor risiko mandiri untuk penyakit pernapasan. Padahal kalau dipikir-pikir, ini kan berhubungan sama beberapa variabel lain seperti PM10, jarak ke sumber pencemar, kepadatan hunian, ventilasi, dan perilaku merokok.
+Nah ini nih yang bikin saya tertarik buat bikin penelitian ini. Ternyata hampir ga ada yang serius ngeliti obat nyamuk semprot sebagai faktor risiko independen buat penyakit pernapasan. Aneh kan? Padahal ini relate banget sama variabel-variabel lain tadi - PM10, jarak ke pabrik, kepadatan, ventilasi, rokok.
 
-Kalau kita lihat beberapa temuan yang udah ada:
+Coba kita liat apa yang udah ditemuin sejauh ini:
 
-Pertama, dari sisi toksikologi, Shafer et al. (2005) di Environmental Health Perspectives udah nunjukin kalau pyrethroid (yang jadi bahan aktif utama obat nyamuk semprot) ternyata bisa bikin iritasi saluran napas akut - gejalanya batuk, sesak napas, sampe wheezing.
+**Dari sisi toksikologi** - Shafer dkk (2005, Environ Health Perspect) udah kasih warning bahwa pyrethroid - itu loh bahan aktif utama di obat nyamuk - ternyata bisa bikin iritasi saluran napas. Gejalanya macem-macem: batuk, sesak, sampe wheezing segala.
 
-Kedua, ada studi kasus di Indonesia yang cukup mengkhawatirkan. Handayani dkk (2021) di Indonesian Journal of Environmental Health nemuin fakta bahwa 72% rumah tangga di perkotaan pake obat nyamuk semprot lebih dari 2 kali sehari. Lebih parahnya lagi, cuma 5% yang sadar kalau ini bisa berbahaya buat kesehatan.
+**Studi kasus di Indo** - Ini yang bikin concern. Handayani cs (2021) di Indonesian J Environ Health nemu 72% rumah tangga perkotaan pake obat nyamuk semprot >2x/hari. Problemnya? Cuma 5% yang nyadar ini berbahaya! Miris ya.
 
-Ketiga, soal mekanisme paparannya, obat nyamuk semprot itu menghasilkan partikel aerosol yang ukurannya di bawah 10 μm - gampang banget masuk sampai ke alveolus paru-paru (Casida & Durkin, 2013 di Journal of Toxicology). Kalau kena paparan terus-menerus, ini bisa bikin peradangan di saluran napas dan fungsi imun lokal jadi turun.
+**Mekanismenya gimana?** - Obat nyamuk semprot itu ngehasilin aerosol dengan ukuran <10 μm. Ukuran sekecil itu gampang masuk ke alveolus paru (Casida & Durkin 2013, J Toxicol). Kalo terpapar lama-lama, bisa bikin inflamasi di saluran napas plus imun lokal drop.
 
-**Kenapa ini penting?**
-- Belum ada studi kohort atau case-control yang bener-bener evaluate obat nyamuk semprot sebagai variabel independen dalam model prediksi ISPA
-- Gimana interaksi obat nyamuk ini sama variabel klasik (PM10, ventilasi, rokok) juga belum dieksplorasi
-- Potensinya sebagai "polutan indoor tersembunyi" yang sering diabaikan dalam kebijakan kesmas itu besar banget
+**Kenapa ini penting banget?**
+- Belum ada penelitian kohort/case-control yang proper buat evaluasi obat nyamuk sebagai variabel independen di model prediksi ISPA
+- Interaksinya sama PM10, ventilasi, rokok belum dieksplorasi
+- Potensinya sebagai "silent pollutant" yang ke-skip di policy kesmas tuh gede
 
 ---
 
@@ -54,33 +54,35 @@ Ketiga, soal mekanisme paparannya, obat nyamuk semprot itu menghasilkan partikel
 
 ### 2.1 Dampak Kesehatan Individu
 
-Kalau masalah-masalah ini dibiarkan terus, beban penyakit pernapasan di masyarakat bakal makin berat. Mari kita lihat satu per satu:
+Oke, sekarang bayangin kalo semua masalah ini dibiarkan aja tanpa ada tindakan. Beban penyakit pernapasan bakal tambah parah. Ini breakdown-nya:
 
 #### a) ISPA Makin Merajalela
-Data dari Kemenkes RI (2022) di Profil Kesehatan Indonesia cukup mengkhawatirkan - ISPA itu penyebab kematian nomor satu pada balita dengan angka 15,5%. Bayangin kalau ga ada intervensi sama sekali, WHO (2021) memproyeksikan prevalensinya bisa naik 20-30% dalam 5 tahun ke depan. Ini bukan main-main, terutama dengan urbanisasi yang terus berlangsung dan polusi yang ga kunjung membaik.
+Profil Kesehatan Indonesia 2022 dari Kemenkes RI kasih data yang cukup bikin worry - ISPA tuh pembunuh nomor 1 balita (15.5%). Kalo dibiarkan tanpa intervensi, WHO (2021) bilang angkanya bisa naik 20-30% dalam 5 tahun. Gila ga tuh? Apalagi urbanisasi makin cepet, polusi makin parah.
 
-#### b) Kalau Udah Kronis, Repot
-Paparan jangka panjang sama PM10 dan polutan dalam ruangan itu efeknya bisa:
-- **Asma** - risikonya naik 1,5 sampai 2 kali lipat menurut Guarnieri & Balmes (2014) di The Lancet
-- **PPOK** - ini yang serem, kalau kena paparan PM10 lebih dari 50 μg/m³ selama lebih dari 10 tahun, risiko PPOK bisa naik 40% (Yin et al., 2017 di Thorax)
-- **Kanker Paru** - IARC bahkan udah klasifikasiin polusi udara outdoor sebagai karsinogen Grup 1 sejak 2013
+#### b) Kalo Udah Kronis Ya Repot
+Paparan lama-lama ke PM10 sama polutan indoor bisa bikin:
+- **Asma** → risiko 1.5-2x lipat (kata Guarnieri & Balmes, 2014 di Lancet)
+- **PPOK** → nah ini yang scary. PM10 >50 μg/m³ selama >10 tahun = risiko PPOK naik 40%! (Yin dkk 2017, Thorax)
+- **Kanker Paru** → IARC udah ngeklasifikasi polusi outdoor jadi karsinogen Grup 1 (2013)
 
-#### c) Anak-anak yang Jadi Korban
-Yang paling bikin prihatin ya anak-anak. Gauderman dkk (2004) di New England Journal of Medicine nunjukin kalau anak yang kena paparan polusi tinggi bisa ngalamin penurunan fungsi paru 10-15% dibanding anak yang ga terpapar. Dan ini sifatnya permanen - ga bisa balik lagi. Artinya, mereka bakal bawa risiko penyakit pernapasan sampai dewasa nanti.
+#### c) Kasian Anak-anaknya
+Yang bikin sedih, anak-anak jadi korban utama. Studi Gauderman cs (2004, NEJM) nemuin anak yang terpapar polusi tinggi ngalamin penurunan fungsi paru 10-15% vs yang ga terpapar. Worse part? Ini permanen. Ga bisa recovery. Jadi mereka carry risiko penyakit napas sampe gede.
 
-### 2.2 Dampak Ekonomi dan Sosial
+### 2.2 Dampak Ekonomi & Sosial
 
-#### a) Biaya yang Ga Main-main
-Mari kita hitung-hitungan:
-- Biaya langsung pengobatan ISPA di Indonesia aja udah tembus Rp 12,5 triliun per tahun (Pusdatin Kemenkes RI, 2021)
-- Belum lagi biaya ga langsungnya - produktivitas yang hilang gara-gara orang sakit dan ga bisa kerja/sekolah itu sekitar Rp 8,3 triliun per tahun
-- World Bank (2020) bahkan bilang kalau kita ga ngapa-ngapain, biaya kesehatan terkait penyakit pernapasan bisa naik 35% pada tahun 2030
+#### a) Biaya yang Fantastis
+Let's do the math:
+- Direct cost (pengobatan ISPA): Rp 12.5 T/tahun (data Pusdatin Kemenkes 2021)
+- Indirect cost (lost productivity): sekitar Rp 8.3 T/tahun karena orang sakit ga bisa kerja/sekolah
+- Proyeksi World Bank (2020): kalo ga ada action, biaya terkait penyakit napas naik 35% di 2030
 
-#### b) Produktivitas Anjlok
-Prüss-Üstün et al. (2016) dalam Environmental Research punya data global yang mencengangkan - penyakit pernapasan akibat polusi udara itu nyebabin kehilangan 4,2 juta DALYs (Disability-Adjusted Life Years) setiap tahunnya. Bayangin aja berapa banyak produktivitas yang hilang.
+Gede kan?
 
-#### c) Yang Miskin Makin Terpuruk
-Ini yang paling ironis. Yang paling kena dampaknya justru masyarakat miskin sama anak-anak. Landrigan dkk (2018) di The Lancet Commission on Pollution and Health nyebutin kalau 92% kematian akibat polusi terjadi di negara berpenghasilan rendah-menengah. Kesenjangan sosial makin melebar.
+#### b) Produktivitas Turun Drastis
+Ada data global dari Prüss-Üstün et al (2016, Environ Res) yang shocking: penyakit napas gara-gara polusi udara = loss 4.2 juta DALYs tiap tahun. That's massive.
+
+#### c) Si Miskin Makin Susah
+Ironisnya, yang paling kena impact ya si miskin sama anak-anak. Landrigan dkk (2018, Lancet Commission) bilang 92% kematian karena polusi terjadi di negara miskin-menengah. Gap ekonomi makin lebar.
 
 ### 2.3 Dampak Lingkungan dan Kebijakan
 
@@ -96,41 +98,41 @@ Peningkatan kasus ISPA dan penyakit pernapasan akan membebani sistem kesehatan y
 
 ### 3.1 Kerangka Teori
 
-Untuk penelitian ini, kita pakai Ecological Model of Health yang dikembangin sama McLeroy et al. (1988). Model ini bagus karena ga cuma liat dari satu sisi aja - dia ngeliat kesehatan itu dipengaruhi dari berbagai level:
-1. **Level Individual** - kayak perilaku merokok, seberapa tau seseorang soal kesehatan lingkungan
-2. **Interpersonal** - misalnya berapa padat rumahnya, gimana interaksi sama orang serumah
-3. **Organizational/Community** - akses ke puskesmas, ada ga program edukasi kesehatan
-4. **Environmental** - ini yang paling krusial: PM10, jarak rumah ke pabrik/jalan raya, ventilasi, sama yang sering dilupain - paparan obat nyamuk
+Untuk penelitian ini saya pake Ecological Model of Health-nya McLeroy cs (1988). Kenapa model ini? Soalnya comprehensive - ga cuma liat 1 aspek doang tapi multi-level:
+1. **Individual** → perilaku merokok, pengetahuan tentang lingkungan sehat
+2. **Interpersonal** → kepadatan rumah, interaksi antar penghuni
+3. **Organizational/Community** → akses ke faskes, program penyuluhan
+4. **Environmental** → PM10, jarak ke pabrik/jalan, ventilasi, dan yang sering skip: paparan obat nyamuk
 
 ### 3.2 Kerangka Konseptual
 
-**Alur Hubungan Faktor Risiko dengan ISPA**
+**Alur Hubungan Faktor Risiko → ISPA**
 
-Jadi begini, penelitian ini ngeliat gimana berbagai faktor risiko berhubungan dengan kejadian ISPA:
+Jadi gini logikanya, penelitian ini mau liat bagaimana berbagai faktor risiko connect dengan kejadian ISPA:
 
 **A. FAKTOR RISIKO**
 
-Yang pertama, faktor lingkungan luar:
-- Konsentrasi PM10 di udara
-- Seberapa deket rumah sama sumber pencemar (pabrik, jalan raya)
+Pertama - faktor lingkungan eksternal:
+- Konsentrasi PM10
+- Jarak rumah ke source pencemar (pabrik, jalan raya, etc)
 
-Kedua, faktor dari kondisi rumah:
-- Berapa padat penghuninya
-- Gimana kualitas ventilasinya
+Kedua - kondisi rumah:
+- Kepadatan (berapa orang per m²)
+- Kualitas ventilasi
 
-Ketiga, faktor perilaku (ini yang sering jadi biang keladi):
-- Ada yang merokok di dalam rumah ga
-- Seberapa sering pake obat nyamuk semprot
+Ketiga - behavioral factors (ini sering jadi root cause):
+- Rokok di dalam rumah
+- Frekuensi pake obat nyamuk semprot
 
-Keempat, faktor dari individunya sendiri:
-- Umur berapa
-- Status gizinya gimana
-- Udah imunisasi lengkap belum
+Keempat - faktor individual:
+- Umur
+- Status gizi
+- Kelengkapan imunisasi
 
-**B. MEDIATOR (Jalur Penghubung)**
-Semua faktor risiko di atas itu ga langsung bikin ISPA, tapi lewat proses:
-- Peradangan di saluran napas
-- Sistem imun lokal jadi lemah
+**B. MEDIATOR (Jalur yang Dilalui)**
+Faktor-faktor di atas ga direct bikin ISPA. Ada prosesnya:
+- Inflamasi di saluran napas
+- Imun lokal weakened
 - Lapisan mukosa di saluran napas rusak
 
 **C. OUTCOME (Hasilnya)**
