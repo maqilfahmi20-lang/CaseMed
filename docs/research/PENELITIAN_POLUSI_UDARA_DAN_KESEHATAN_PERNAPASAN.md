@@ -135,149 +135,147 @@ Faktor-faktor di atas ga direct bikin ISPA. Ada prosesnya:
 - Imun lokal weakened
 - Lapisan mukosa di saluran napas rusak
 
-**C. OUTCOME (Hasilnya)**
-Kejadian ISPA dengan tingkat:
-- Ringan, sedang, atau berat
-- Kalau sering (lebih dari 3 kali setahun), ini udah jadi masalah serius
+**C. OUTCOME**
+Kejadian ISPA - bisa ringan, sedang, sampe berat
+- Kalo sering (>3x/tahun) ini udah concerning
 
-**D. PERANCU (Yang Bikin Bingung)**
-Beberapa hal yang harus dikontrol karena bisa mengacaukan hasil:
-- Status ekonomi keluarga
-- Pendidikan orang tua
-- Akses ke puskesmas/RS
+**D. CONFOUNDERS (Yang Bisa Bikin Results Bias)**
+Harus dikontrol ini mah:
+- Status ekonomi
+- Pendidikan ortunya
+- Akses ke faskes
 
-**E. PENGUBAH EFEK**
-Ada juga faktor yang bisa memperkuat atau memperlemah hubungan:
-- Musim (hujan biasanya lebih parah)
+**E. EFFECT MODIFIERS**
+Faktor yang bisa strengthen/weaken hubungan:
+- Musim (hujan usually worse)
 - Cuaca
-- Lagi banyak wabah penyakit menular ga di sekitar
+- Outbreak di komunitas
 
-Intinya gini: faktor lingkungan, rumah, dan perilaku → bikin peradangan di saluran napas → ISPA. Faktor individu berperan sebagai pengubah risiko, dan kita harus kontrol faktor perancu di analisis multivariat nanti.
+Bottom line: lingkungan + rumah + behavior → inflamasi airways → ISPA. Individual factors act as risk modifiers. Confounders must be controlled in multivariate analysis.
 
 ### 3.3 Desain Penelitian
 
-**Jenis Penelitian**: Kita pakai observasional analitik dengan desain case-control study
+**Tipe**: Observational analytic, case-control design
 
-**Kenapa milih ini?**
-- Efisien buat neliti penyakit yang udah sering terjadi kayak ISPA
-- Bisa lihat banyak faktor risiko sekaligus dalam satu waktu
-- Cocok untuk ngitung Odds Ratio dan cari tau faktor risiko mana yang signifikan
-- Ini udah jadi standar di epidemiologi (Hennekens & Buring, 1987 dalam Epidemiology in Medicine)
+**Rationale:**
+- Efficient untuk penyakit prevalent kayak ISPA
+- Bisa assess multiple risk factors simultaneously
+- Good untuk hitung OR & identify significant factors
+- Standard di epi studies (ref: Hennekens & Buring 1987, Epi in Medicine)
 
-### 3.4 Hipotesis Penelitian
+### 3.4 Hipotesis
 
-**Hipotesis Utama**:
-- H0: Ga ada hubungan antara pemakaian obat nyamuk semprot dengan kejadian ISPA
-- Ha: Ada hubungan antara pemakaian obat nyamuk semprot dengan kejadian ISPA (OR>1, p<0,05)
+**Main Hypothesis:**
+- H0: No association antara obat nyamuk semprot dgn ISPA
+- Ha: Ada association (OR>1, p<0.05)
 
-**Hipotesis Lainnya**:
-1. PM10 lebih dari 50 μg/m³ → risiko ISPA naik
-2. Rumah yang jaraknya kurang dari 500m dari sumber pencemar → risiko ISPA naik
-3. Kepadatan hunian lebih dari 8m² per orang → risiko ISPA naik
-4. Ventilasi kurang dari 10% luas lantai → risiko ISPA naik
-5. Kebiasaan merokok di dalam rumah → risiko ISPA naik
-6. Ada efek kombinasi antara obat nyamuk semprot sama ventilasi buruk (ini yang menarik!)
+**Secondary Hypotheses:**
+1. PM10 >50 μg/m³ → increased ISPA risk
+2. Distance <500m dari pollutant source → increased risk
+3. Kepadatan >8m²/person → increased risk  
+4. Ventilasi <10% floor area → increased risk
+5. Indoor smoking → increased risk
+6. Synergistic effect: obat nyamuk × poor ventilation (interesting!)
 
 ### 3.5 Metode Analisis
 
-#### a) Analisis Univariat
-Ya standar lah ya, deskripsi distribusi frekuensi sama proporsi untuk tiap variabel
+#### a) Univariate
+Basic descriptive stats - frequency distribution & proportions untuk each variable
 
-#### b) Analisis Bivariat
-- Pakai chi-square test buat variabel kategorik
-- Independent t-test buat yang numerik
-- Hitung Crude OR dengan 95% CI
+#### b) Bivariate  
+- Chi-square untuk categorical vars
+- T-test untuk numerical
+- Calculate crude OR (95% CI)
 
-#### c) Analisis Multivariat
-Ini bagian pentingnya:
-- **Regresi Logistik Berganda** - buat kontrol confounding dan dapetin Adjusted OR yang lebih akurat
-- **Interaction terms** - buat liat apakah ada efek kombinasi antara obat nyamuk sama variabel lain
-- **Stratified analysis** - buat identifikasi effect modification
-- Metodenya kita ikutin Hosmer & Lemeshow (2013) dalam Applied Logistic Regression
+#### c) Multivariate (the important part!)
+- **Multiple Logistic Regression** → control confounding, get adjusted OR
+- **Interaction terms** → assess combined effects (obat nyamuk × other vars)
+- **Stratified analysis** → ID effect modifiers
+- Following Hosmer & Lemeshow 2013 methodology (Applied Logistic Regression)
 
-#### d) Uji Validitas dan Reliabilitas
-- Validitas instrumen pakai content validity (minta pendapat expert)
-- Reliabilitas pengukuran pakai test-retest reliability (target Kappa Cohen lebih dari 0,7)
+#### d) Validity & Reliability
+- Content validity via expert judgment
+- Test-retest reliability (Cohen's Kappa >0.7)
 
 ---
 
 ## 4. URAIAN PERMASALAHAN DAN TUJUAN
 
-### 4.1 Latar Belakang Permasalahan
+### 4.1 Latar Belakang
 
-ISPA (Infeksi Saluran Pernapasan Akut) ini masalah besar di Indonesia. Data Riskesdas 2018 nunjukin prevalensi ISPA pada balita udah 18,5%, dengan variasi antar provinsi dari 6,8% sampai 29,4%. Yang lebih ngeri lagi, ISPA jadi penyebab 25% kematian balita di Indonesia (Kemenkes RI, 2019). Ini bukan angka yang bisa diabaikan begitu aja.
+ISPA (Acute Respiratory Infection) tuh problem besar di Indo. Riskesdas 2018 shows prevalensi pada balita 18.5% (range 6.8-29.4% across provinces). Worse: ISPA causes 25% balita deaths (Kemenkes 2019). Not a number we can ignore.
 
-Polusi udara, baik dari luar maupun dari dalam rumah, udah terbukti jadi faktor risiko utama. Global Burden of Disease Study 2019 bahkan nempatkan polusi udara sebagai penyebab kematian keempat secara global - kita bicara soal 8,7 juta kematian prematur setiap tahunnya (Murray et al., 2020 di The Lancet). Angkanya fantastis.
+Air pollution - outdoor & indoor - proven major risk factor. GBD Study 2019 ranks it as 4th leading cause of death globally: 8.7 million premature deaths/year (Murray et al 2020, Lancet). Massive numbers.
 
-Di Jakarta misalnya, konsentrasi PM10 rata-rata udah 71 μg/m³. Ini melebihi standar WHO (50 μg/m³) bahkan standar nasional kita sendiri (70 μg/m³) menurut laporan Greenpeace 2020. Tapi yang sering dilupain adalah polusi di dalam rumah. UNEP (2019) bilang polusi indoor itu bisa 2-5 kali lebih bahaya daripada polusi luar. Paradoks banget kan.
+Jakarta example: PM10 averages 71 μg/m³ - exceeds WHO standard (50) & even national standard (70) per Greenpeace 2020 report. But indoor pollution often forgotten. UNEP 2019 states indoor pollution can be 2-5x more dangerous than outdoor. Paradoxical right?
 
-Nah, yang menarik adalah soal obat nyamuk semprot. Ini sumber polusi indoor yang jarang disentuh peneliti. Di Indonesia, pemakaian insektisida rumah tangga itu tinggi banget karena kita punya masalah sama nyamuk (malaria, DBD, dsb). SDKI 2017 nunjukin 83% rumah tangga pakai obat nyamuk, dan 45% di antaranya pakai yang semprot.
+Yang interesting: mosquito spray. Understudied indoor pollutant source. Di Indonesia, household insecticide use very high (mosquito-borne disease problems: malaria, dengue, etc). SDKI 2017: 83% households use mosquito repellent, 45% use spray type.
 
-Obat nyamuk semprot ini isinya pyrethroid atau organophosphate. Menurut ATSDR (2020), ini bisa bikin iritasi saluran napas akut sampe kerusakan paru kalau paparannya tinggi. Tapi sayangnya, belum ada penelitian lengkap di Indonesia yang ngeliat obat nyamuk semprot sebagai faktor risiko ISPA secara multifaktorial.
+Mosquito spray contains pyrethroid/organophosphate. ATSDR 2020: can cause acute respiratory irritation → chronic lung damage at high exposure. Unfortunately, no comprehensive Indo research evaluating mosquito spray as ISPA risk factor in multifactorial context.
 
-**Inti Permasalahannya**:
-1. ISPA di Indonesia prevalensinya tinggi tapi intervensinya belum maksimal
-2. Ada gap penelitian soal polusi indoor, terutama obat nyamuk semprot
-3. Belum ada model yang nggabungin faktor outdoor (PM10, jarak ke pencemar) sama indoor (ventilasi, kepadatan, rokok, obat nyamuk) dalam satu framework
+**Core Problems:**
+1. High ISPA prevalence but suboptimal intervention
+2. Research gap on indoor pollution - esp. mosquito spray  
+3. No integrated model combining outdoor (PM10, distance) & indoor factors (ventilation, density, smoking, mosquito spray)
+4. Low public awareness re: mosquito spray risks
 4. Masyarakat kurang aware sama bahaya obat nyamuk semprot
 
-### 4.2 Rumusan Masalah
+### 4.2 Research Questions
 
-Jadi pertanyaan-pertanyaan penelitian yang mau dijawab:
+Questions to be answered:
 
-1. Apakah ada hubungan antara konsentrasi PM10 dengan kejadian ISPA?
-2. Apakah jarak rumah ke sumber pencemar ada hubungannya dengan ISPA?
-3. Gimana dengan kepadatan hunian - apakah berpengaruh ke ISPA?
-4. Kualitas ventilasi rumah - apakah berhubungan sama ISPA?
-5. Perilaku merokok di dalam rumah - apakah ini faktor risikonya?
-6. **Yang paling penting: apakah penggunaan obat nyamuk semprot berhubungan dengan kejadian ISPA?** (ini yang jadi novelty kita)
-7. Apakah ada interaksi atau efek kombinasi antara variabel-variabel ini?
-8. Dari semua faktor, mana yang paling dominan dalam memprediksi ISPA?
+1. Association between PM10 concentration & ISPA?
+2. Jarak rumah ke pollutant source → ISPA?
+3. Housing density impact on ISPA?
+4. Ventilation quality → ISPA relationship?
+5. Indoor smoking behavior as risk factor?
+6. **KEY Q: Mosquito spray usage → ISPA?** (our novelty)
+7. Any interaction/synergistic effects among variables?
+8. Which factor dominates in predicting ISPA?
 
-### 4.3 Tujuan Penelitian
+### 4.3 Objectives
 
-#### 4.3.1 Tujuan Umum
-Intinya, penelitian ini mau menganalisis hubungan antara faktor risiko lingkungan (PM10, jarak ke sumber pencemar), faktor perumahan (kepadatan hunian, ventilasi), faktor perilaku (merokok, dan yang paling penting - penggunaan obat nyamuk semprot) dengan kejadian ISPA pada masyarakat perkotaan di Indonesia.
+#### 4.3.1 General Objective
+Analyze relationship between environmental (PM10, distance to source), housing (density, ventilation), & behavioral factors (smoking, **mosquito spray use**) with ISPA incidence in urban Indonesian population.
 
-#### 4.3.2 Tujuan Khusus
-Secara detail:
-1. Analisis hubungan PM10 dengan ISPA
-2. Analisis hubungan jarak rumah ke sumber pencemar dengan ISPA
-3. Analisis hubungan kepadatan hunian dengan ISPA
-4. Analisis hubungan kualitas ventilasi dengan ISPA
-5. Analisis hubungan perilaku merokok dengan ISPA
-6. **Analisis hubungan frekuensi dan durasi penggunaan obat nyamuk semprot dengan ISPA** (ini kuncinya!)
-7. Identifikasi interaksi antar variabel dalam model multivariat
-8. Tentukan faktor risiko yang paling dominan lewat analisis regresi logistik berganda
+#### 4.3.2 Specific Objectives
+1. Analyze PM10 ↔ ISPA association
+2. Analyze distance ↔ ISPA association  
+3. Analyze housing density ↔ ISPA
+4. Analyze ventilation ↔ ISPA
+5. Analyze smoking ↔ ISPA
+6. **Analyze mosquito spray frequency/duration ↔ ISPA** (key!)
+7. Identify inter-variable interactions in multivariate model
+8. Determine dominant risk factor via logistic regression
 
-### 4.4 Manfaat Penelitian
+### 4.4 Research Benefits
 
-#### 4.4.1 Manfaat Teoritis
-1. **Kontribusi Ilmiah** - Nambah wawasan tentang polusi indoor sebagai faktor risiko ISPA, khususnya peran obat nyamuk semprot yang selama ini kurang diperhatikan
-2. **Pengembangan Model** - Bikin model prediksi risiko ISPA yang lebih lengkap dengan variabel baru
-3. **Validasi Teori** - Nguji ecological model of health di konteks penyakit pernapasan Indonesia
+#### 4.4.1 Theoretical
+1. **Scientific Contribution** → expand knowledge on indoor pollution as ISPA risk, esp. neglected mosquito spray role
+2. **Model Development** → comprehensive ISPA risk prediction model with novel variable
+3. **Theory Validation** → test ecological health model in Indo respiratory disease context
 
-#### 4.4.2 Manfaat Praktis
-1. **Kebijakan Kesehatan** - Kasih rekomendasi berbasis bukti untuk bikin kebijakan pengendalian ISPA, baik di tingkat nasional maupun daerah
-2. **Program Intervensi** - Jadi landasan untuk bikin program edukasi tentang cara pake obat nyamuk yang aman
-3. **Regulasi Produk** - Bisa jadi masukan buat bikin label peringatan di produk insektisida rumah tangga
-4. **Edukasi Masyarakat** - Ningkatin kesadaran masyarakat soal bahaya polusi indoor dan gimana cara menguranginya
+#### 4.4.2 Practical
+1. **Health Policy** → evidence-based recommendations for ISPA control policy (national/regional)
+2. **Intervention Programs** → basis untuk develop education programs on safe mosquito repellent use
+3. **Product Regulation** → input for warning label requirements on household insecticides  
+4. **Public Education** → increase awareness about indoor pollution hazards & mitigation strategies
 
-#### 4.4.3 Manfaat bagi Peneliti Selanjutnya
-1. Bisa jadi rujukan buat penelitian kohort jangka panjang soal efek kronis obat nyamuk
-2. Buka peluang untuk penelitian experimental tentang gimana pyrethroid bisa bikin peradangan di saluran napas
-3. Hopefully bisa mendorong penelitian serupa di negara berkembang lain yang punya masalah sama (penyakit yang ditularkan nyamuk tinggi)
+#### 4.4.3 For Future Researchers
+1. Reference for long-term cohort studies on chronic mosquito spray effects
+2. Opens opportunities for experimental research on pyrethroid-induced airway inflammation mechanisms
+3. Hopefully stimulate similar research in other developing countries with high vector-borne disease burden
 
-### 4.5 Keaslian Penelitian
+### 4.5 Research Novelty
 
-Setelah ngulik berbagai jurnal dan publikasi, belum ada penelitian di Indonesia yang secara spesifik meneliti obat nyamuk semprot sebagai faktor risiko mandiri untuk ISPA dalam model multivariat yang juga include PM10, jarak ke sumber pencemar, kepadatan hunian, ventilasi, dan perilaku merokok.
+After extensive literature review, no Indonesian research specifically examines mosquito spray as independent ISPA risk factor in multivariate model also including PM10, distance to pollutant source, housing density, ventilation, & smoking behavior.
 
-Beberapa penelitian yang pernah ada:
-1. Putra dkk (2019) - cuma ngeliti PM10 sama ventilasi, ga ada obat nyamuk
-2. Anggraeni dkk (2020) - fokusnya ke asap rokok sama kepadatan hunian aja
-3. Penelitian internasional - kebanyakan soal pyrethroid itu toksikologi eksperimental, bukan studi epidemiologi observasional kayak yang kita mau lakuin
+Previous related studies:
+1. Putra et al (2019) → only PM10 & ventilation, no mosquito spray
+2. Anggraeni et al (2020) → focus on smoking & housing density only
+3. International studies → mostly experimental toxicology on pyrethroid, not observational epi studies
 
-**Yang bikin penelitian ini beda**: Kita gabungin faktor risiko outdoor sama indoor dengan variabel baru (obat nyamuk semprot) dalam satu model prediksi. Plus, konteks Indonesia itu unik - pemakaian obat nyamuk tinggi, polusi urban parah, rumah-rumahnya padat. Kombinasi ini belum pernah diteliti sebelumnya.
+**What makes this research different**: Integration of outdoor + indoor risk factors with novel variable (mosquito spray) in one predictive model. Plus, Indonesian context unique - high mosquito repellent use, severe urban pollution, dense housing. This combination never studied before.
 
 ---
 
